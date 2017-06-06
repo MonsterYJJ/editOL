@@ -1,3 +1,7 @@
+var getusers=Object.create(null);
+getusers.users=[];
+
+getusers. get = function(user_id){
 var mysql = require('mysql');
 var connection = mysql.createConnection({    
   host     : '127.0.0.1',      
@@ -6,23 +10,34 @@ var connection = mysql.createConnection({    
   port: '3306',                  
   database: 'editol',
 });
-connection.connect();
 
+connection.connect();
 var  userGetSql = 'SELECT * FROM tb_users where user_id = ?';
-var userModSql_Params = ["admin"];
+var userModSql_Params = [];
+userModSql_Params.push(user_id);
+
 connection.query( 
   userGetSql,userModSql_Params ,
   function selectCb(err, results, fields) { 
     if (err) { 
       throw err; 
-    } 
+    } ;
        if(results)
-      {
+      {    getusers.users = [];
           for(var i = 0; i < results.length; i++)
-          {
-              console.log("%d\t%s\t%s", results[i].id, results[i].user_name, results[i].user_id);
+          {   var user = Object.create(null);
+                user.id = results[i].id;
+                user.name = results[i].user_name;
+                user.userid = results[i].user_id;
+                user.pwd = results[i].user_pwd;      
+                getusers.users.push(user);
+                console.log(getusers.users);    
           }
       }   
     connection.end(); 
   } 
 );
+return 
+}
+
+module.exports = getusers;
