@@ -3,11 +3,12 @@
 <head>
 <meta charset="utf-8">
 <title>edit_OL</title>
-<style  type="text/css">
+<style type="text/css">
 body {
 	background-color: #FaFaFa;
 	text-align: center;
 }
+
 #msg {
 	position: absolute;
 	width: 480px;
@@ -23,24 +24,29 @@ body {
 	margin-left: -240px;
 	text-align: center;
 }
-#title {
 
+#title {
 	font-size: 72px;
 }
+
 #login {
-	margin-left: 30%;
+	cursor: hand;
+	width: 50%;
 	float: left;
 	font-size: 20px;
+	width: 50%;
 }
+
 #res {
-	margin-right:10%;
+	cursor: hand;
 	font-size: 20px;
 }
+
 #login_b {
+	cursor: hand;
 	border-radius: 2px;
-	line-height:56px;
+	line-height: 56px;
 	margin-top: 20px;
-	margin-left: 20%;
 	color: #FFF;
 	background-color: #448AFF;
 	width: 60%;
@@ -51,8 +57,10 @@ body {
 	-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
 	-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
 	box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+	border-radius: 2px;
 }
-#name_t {
+
+.name_t {
 	margin-top: 10px;
 	background-color: #FAFAFA;
 	width: 60%;
@@ -60,8 +68,8 @@ body {
 	border: none;
 	outline: none;
 	font-size: 20px;
-	color:#CCC;
 }
+
 #pwd_t {
 	margin-top: 10px;
 	background-color: #FAFAFA;
@@ -70,10 +78,10 @@ body {
 	border: none;
 	outline: none;
 	font-size: 20px;
-	color:#CCC;
 }
-.xian {
-	float:left;
+
+#xian {
+	float: left;
 	margin-top: 10px;
 	margin-left: 20%;
 	background-color: #e2e2e2;
@@ -81,7 +89,8 @@ body {
 	width: 60%;
 	margin-bottom: 10px;
 }
-.xian2 {
+
+#xian2 {
 	margin-top: 10px;
 	margin-left: 25%;
 	background-color: #03A9F4;
@@ -89,18 +98,42 @@ body {
 	width: 20%;
 	margin-bottom: 10px;
 }
+
 </style>
+<script type="text/javascript">
+	function zhu() {
+		document.getElementById("xian2").style.cssText = "margin-left:55%;";
+		document.getElementById("form1").style.display="none";
+		document.getElementById("form2").style.display="";
+	}
+	function deng() {
+		document.getElementById("xian2").style.cssText = "margin-left:25%;";
+		document.getElementById("form2").style.display="none";
+		document.getElementById("form1").style.display="";
+	}
+</script>
 </head>
-<body>
-<div id="msg">
-  <p id="title">editOL</p>
-  <div id="login">登陆</div>
-  <div id="res">注册</div>
-  <div class="xian"></div>
-  <div class="xian2"></div>
-  <input type="text" id="name_t" value="  账号" spellcheck="false"/>
-  <input type="text" id="pwd_t" value="  密码" spellcheck="false"/>
-  <div id="login_b">登陆</div>
-</div>
+<body onload="deng()">
+	<div id="msg">
+		<p id="title">editOL</p>
+		<div style="width: 60%; margin-left: 20%;">
+			<div id="login" onclick="deng()">登陆</div>
+			<div id="res" onclick="zhu()">注册</div>
+		</div>
+		<div id="xian"></div>
+		<div id="xian2"></div>
+		<form id="form1" method="post" action="login.action">
+			<input type="text" class="name_t" name="name" placeholder="  账号" spellcheck="false" />
+			<input type="password" id="pwd_t" name="pwd" placeholder=" 密码" spellcheck="false" />
+			<input type="hidden" name="type" value="user" />
+			<input id="login_b" type="submit" value="登陆" />
+		</form>
+		<form id="form2" method="post" action="login.action" >
+			<input type="text" class="name_t" name="name" placeholder="  账号" spellcheck="false" />
+			<input type="text" name="type" class="name_t" placeholder="  姓名" />
+			<input type="password" id="pwd_t" name="pwd" placeholder=" 密码" spellcheck="false" />
+			<input id="login_b" type="submit" value="登陆" />
+		</form>
+	</div>
 </body>
 </html>
