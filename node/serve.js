@@ -4,7 +4,9 @@ var path = require("path");
 var express  = require("express"); 
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
+var fs   = require("fs");
 var login = require("./lg");
+var regist = require("./regist");
 
 var app = express();
 app.use(cookieParser());
@@ -28,21 +30,64 @@ var server = app.listen(8888, function () {
 });
 
 app.get('/', function (req, res) {
-	res.render("ok");
+
+var pathname=__dirname+url.parse(req.url).pathname;
+    if (path.extname(pathname)=="") {
+        pathname+="/";
+    }
+    if (pathname.charAt(pathname.length-1)=="/"){
+        pathname+="ok.html";
+    }
+
+    fs.exists(pathname,function(exists){
+        if(exists){
+            switch(path.extname(pathname)){
+                case ".html":
+                    res.writeHead(200, {"Content-Type": "text/html"});
+                    break;
+                case ".js":
+                    res.writeHead(200, {"Content-Type": "text/javascript"});
+                    break;
+                case ".css":
+                    res.writeHead(200, {"Content-Type": "text/css"});
+                    break;
+                case ".gif":
+                    res.writeHead(200, {"Content-Type": "image/gif"});
+                    break;
+                case ".jpg":
+                    res.writeHead(200, {"Content-Type": "image/jpeg"});
+                    break;
+                case ".png":
+                    res.writeHead(200, {"Content-Type": "image/png"});
+                    break;
+                default:
+                    res.writeHead(200, {"Content-Type": "application/octet-stream"});
+            }
+
+            fs.readFile(pathname,function (err,data){
+                res.end(data);
+            });
+        } else {
+            res.writeHead(404, {"Content-Type": "text/html"});
+            res.end("<h1>404 Not Found</h1>");
+        }
+    });
+
+	//res.send("ok");
 });
 
 app.get('/login', function (req, res) {
-	methods.login(req.query,req,res)
+	methods.login(req.query,req,res);
 });
 app.post('/login', function (req, res) {
-	methods.login(req.body,req,res)
+	methods.login(req.body,req,res);
 });
 
 app.get('/regist', function (req, res) {
-	methods.regist(req.query,req,res)
+	methods.regist(req.query,req,res);
 });
 app.post('/regist', function (req, res) {
-	methods.regist(req.body,req,res)
+	methods.regist(req.body,req,res);
 });
 
 methods.login = function(query,request,response){
@@ -55,8 +100,9 @@ methods.login = function(query,request,response){
 methods.regist = function(query,request,response){
 	var user = Object.create(null);
 	user.userid = query.userid;
+	user.name = query.name;
 	user.pwd = query.pwd;
-	login(user,request,response);
+	regist(user,request,response);
 }
 // 终端打印如下信息
 console.log('Server running at http://127.0.0.1:8888/');

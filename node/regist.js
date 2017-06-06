@@ -1,6 +1,5 @@
+module.exports = function (user,request,response) {
 var mysql = require('mysql');
-
-//创建连接  
 var connection = mysql.createConnection({    
   host     : '127.0.0.1',      
   user     : 'root',             
@@ -8,11 +7,13 @@ var connection = mysql.createConnection({    
   port: '3306',                  
   database: 'editol',
 });
+
 connection.connect();
-
 var  userGetSql = 'INSERT INTO tb_users(id,user_id,user_pwd,user_name) VALUES(0,?,?,?)';
-var userModSql_Params = ["ann","ann","ann"];
-
+var userModSql_Params = [];
+userModSql_Params.push(user.userid)
+userModSql_Params.push(user.pwd)
+userModSql_Params.push(user.name);
 connection.query( 
   userGetSql, userModSql_Params,
   function selectCb(err, results) { 
@@ -26,3 +27,6 @@ connection.query( 
     connection.end(); 
   } 
 );
+
+
+}
