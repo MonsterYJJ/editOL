@@ -1,154 +1,174 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>edit_OL</title>
-<style  type="text/css">
-body {
-	background-color: #FaFaFa;
-}
-#title {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 144px;
-	border: none;
-	border-radius: 0px;
-	background-color: rgba(3, 169, 244, 1);
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
-}
-#logo {
-	position: absolute;
-	left: 0px;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-}
-#title_t {
-	position: absolute;
-	margin-left: 56px;
-	height: 56px;
-	float: left;
-	text-align: center;
-	color: #FFF;
-	font-family: '宋体 常规', '宋体';
-	font-weight: 400;
-	font-style: normal;
-	font-size: 25px;
-	line-height: 56px
-}
-#tou {
-	position: relative;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-	float: right;
-}
-#scan {
-	position: relative;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-	right: 56px;
-	float: right;
-}
-#edit {
-	position: absolute;
-	margin-left: 56px;
-	top: 64px;
-	padding: 50px;
-	border: none;
-	width: 60%;
-	height: 2000px;
-	overflow-y: hidden;
-	overflow-x: hidden;
-	font-family: '宋体 常规', '宋体';
-	font-style: normal;
-	font-size: 20px;
-	text-align: left;
-	outline: none;
-	resize: none;
-	background-color: rgba(255, 255, 255, 1);
-	border-radius: 2px;
-	-moz-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-}
-#tou_img {
-	width: 48px;
-	height: 48px;
-}
-#msg {
-	position: absolute;
-	left: 72%;
-	float: left;
-	width: 20%;
-	margin-top: 194px;
-	padding: 16px;
-	height: 500px;
-	background-color: rgba(255, 255, 255, 1);
-	-moz-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
-}
-.xian {
-	float: left;
-	background-color: #a2a2a2;
-	height: 1px;
-	width: 90%;
-}
-.left {
-	background-color: rgba(68, 138, 255, 1);
-	height: 30px;
-	text-height: 30px;
-	width: fit-content;
-	width: -webkit-fit-content;
-	width: -moz-fit-content;
-	text-align: left;
-	border-radius: 5px;
-	color: #FFF;
-	padding: 5px 10px 5px 10px;
-}
-.right {
-	height: 10%;
-	text-align: right;
-	text-height: 10%;
-	border-radius: 5px;
-}
-.time{
-	font-size:12px;
-	color:#aaa;
-	}
-#send {
-	position: absolute;
-	left: 90%;
-	height: 36px;
-	width: 10%;
-}
-#msg_list {
-	overflow: auto;
-	overflow-x: hidden;
-	height: 90%;
-	width: 100%;
-}
-#edit_s {
-	width: 90%;
-	height: 20px;
-	border: none;
-	outline: none;/*--
+	<meta charset="utf-8">
+	<title>edit_OL</title>
+	<style type="text/css">
+		body {
+			background-color: #FaFaFa;
+		}
+
+		#title {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 144px;
+			border: none;
+			border-radius: 0px;
+			background-color: rgba(3, 169, 244, 1);
+			box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-moz-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+		}
+
+		#logo {
+			position: absolute;
+			left: 0px;
+			width: 56px;
+			height: 56px;
+			text-align: center;
+		}
+
+		#title_t {
+			position: absolute;
+			margin-left: 56px;
+			height: 56px;
+			float: left;
+			text-align: center;
+			color: #FFF;
+			font-family: '宋体 常规', '宋体';
+			font-weight: 400;
+			font-style: normal;
+			font-size: 25px;
+			line-height: 56px
+		}
+
+		#tou {
+			position: relative;
+			width: 56px;
+			height: 56px;
+			text-align: center;
+			float: right;
+		}
+
+		#scan {
+			position: relative;
+			width: 56px;
+			height: 56px;
+			text-align: center;
+			right: 56px;
+			float: right;
+		}
+
+		#edit {
+			position: absolute;
+			margin-left: 56px;
+			top: 64px;
+			padding: 50px;
+			border: none;
+			width: 60%;
+			height: 2000px;
+			overflow-y: hidden;
+			overflow-x: hidden;
+			font-family: '宋体 常规', '宋体';
+			font-style: normal;
+			font-size: 20px;
+			text-align: left;
+			outline: none;
+			resize: none;
+			background-color: rgba(255, 255, 255, 1);
+			border-radius: 2px;
+			-moz-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+		}
+
+		#tou_img {
+			width: 48px;
+			height: 48px;
+		}
+
+		#msg {
+			position: absolute;
+			left: 72%;
+			float: left;
+			width: 20%;
+			margin-top: 194px;
+			padding: 16px;
+			height: 500px;
+			background-color: rgba(255, 255, 255, 1);
+			-moz-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
+		}
+
+		.xian {
+			float: left;
+			background-color: #a2a2a2;
+			height: 1px;
+			width: 90%;
+		}
+
+		.left {
+			background-color: rgba(68, 138, 255, 1);
+			height: 30px;
+			text-height: 30px;
+			width: fit-content;
+			width: -webkit-fit-content;
+			width: -moz-fit-content;
+			text-align: left;
+			border-radius: 5px;
+			color: #FFF;
+			padding: 5px 10px 5px 10px;
+		}
+
+		.right {
+			height: 10%;
+			text-align: right;
+			text-height: 10%;
+			border-radius: 5px;
+		}
+
+		.time {
+			font-size: 12px;
+			color: #aaa;
+		}
+
+		#send {
+			position: absolute;
+			left: 90%;
+			height: 36px;
+			width: 10%;
+		}
+
+		#msg_list {
+			overflow: auto;
+			overflow-x: hidden;
+			height: 90%;
+			width: 100%;
+		}
+
+		#edit_s {
+			width: 90%;
+			height: 20px;
+			border: none;
+			outline: none;
+			/*--
 	overflow-y: hidden;
 	overflow-x: hidden;
 	resize:none;--*/
-}
-</style>
+		}
+	</style>
 </head>
+
 <body>
-<div id="title"></div>
-<div id="title_t">edit > 文档一</div>
-<div id="logo"> <img id="tou_img" src="images/logo.png"></div>
-<div id="tou" > <img id="tou_img" src="images/tou.gif"></div>
-<textarea id="edit" spellcheck="false">
+	<div id="title"></div>
+	<div id="title_t">edit > 文档一</div>
+	<div id="logo"> <img id="tou_img" src="images/logo.png"></div>
+	<div id="tou"> <img id="tou_img" src="images/tou.gif"></div>
+	<textarea id="edit" spellcheck="false">
 欢迎使用在线文档 
 
 在线文档，一份在线编辑、实时保存的文档，还可以轻松邀请好友来一起协作编辑。以下是一些 线文档使用小技巧：
@@ -181,14 +201,15 @@ body {
 进入文档的好友，可以与你一起编辑文档。
 至此，在线文档使用技巧已get，想知道老司机如何玩转在线表格吗？请在我创建的列表中查看文档《玩转在线文档—场景示范》。
 </textarea>
-<div id="msg">
-  <div id="msg_list">
-    <div class="left">你好</div>
-    <p class="time">王泽豪-6:00</p>
-    <div class="right">你好</div>
-  </div>
-  <input type="text" id="edit_s" spellcheck="false"/>
-  <div class="xian"></div>
-  <img id="send" src="images/jiant.png"/> </div>
+	<div id="msg">
+		<div id="msg_list">
+			<div class="left">你好</div>
+			<p class="time">王泽豪-6:00</p>
+			<div class="right">你好</div>
+		</div>
+		<input type="text" id="edit_s" spellcheck="false" />
+		<div class="xian"></div>
+		<img id="send" src="images/jiant.png" /> </div>
 </body>
+
 </html>
