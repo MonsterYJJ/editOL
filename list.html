@@ -1,111 +1,237 @@
 <!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>edit_OL</title>
-<style type="text/css">
-body {
-	background-color: #FaFaFa;
-	height: 100%;
-	overflow: hidden;
-}
+	<meta charset="utf-8">
+	<title>edit_OL</title>
+	<style type="text/css">
+		body {
+			background-color: #FaFaFa;
+			height: 100%;
+			overflow: hidden;
+		}
 
-html {
-	height: 100%;
-}
-a {
-	text-decoration: none;
-}
-#title {
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	width: 100%;
-	height: 64px;
-	border: none;
-	border-radius: 0px;
-	background-color: rgba(3, 169, 244, 1);
-	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
-}
+		html {
+			height: 100%;
+		}
 
-#logo {
-	position: absolute;
-	left: 0px;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-}
+		a {
+			text-decoration: none;
+		}
 
-#title_t {
-	position: absolute;
-	margin-left: 56px;
-	height: 56px;
-	float: left;
-	text-align: center;
-	color: #FFF;
-	font-family: '宋体 常规', '宋体';
-	font-weight: 400;
-	font-style: normal;
-	font-size: 25px;
-	line-height: 56px
-}
+		#title {
+			position: absolute;
+			left: 0px;
+			top: 0px;
+			width: 100%;
+			height: 64px;
+			border: none;
+			border-radius: 0px;
+			background-color: rgba(3, 169, 244, 1);
+			box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-moz-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+		}
 
-#tou {
-	position: relative;
-	width: 56px;
-	height: 56px;
-	text-align: center;
-	float: right;
-}
+		#logo {
+			position: absolute;
+			left: 0px;
+			width: 56px;
+			height: 56px;
+			text-align: center;
+		}
 
-#tou_img {
-	width: 48px;
-	height: 48px;
-}
+		#title_t {
+			position: absolute;
+			margin-left: 56px;
+			height: 56px;
+			float: left;
+			text-align: center;
+			color: #FFF;
+			font-family: '宋体 常规', '宋体';
+			font-weight: 400;
+			font-style: normal;
+			font-size: 25px;
+			line-height: 56px
+		}
 
-#msg {
-	position: absolute;
-	right: 0%;
-	float: right;
-	width: 23%;
-	margin-top: 60px;
-	height: 100%;
-	background-color: rgba(255, 255, 255, 1);
-	-moz-box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-}
+		#tou {
+			position: relative;
+			width: 56px;
+			height: 56px;
+			text-align: center;
+			float: right;
+		}
 
-#tab {
-	border: none;
-	left: 0%;
-	width: 100%;
-	margin-top: 60px;
-	text-align: left;
-	height:100%;
-	/* 	overflow:scroll; 
+		#tou_img {
+			width: 48px;
+			height: 48px;
+		}
+
+		#msg {
+			position: absolute;
+			right: 0%;
+			float: right;
+			width: 23%;
+			margin-top: 60px;
+			height: 100%;
+			background-color: rgba(255, 255, 255, 1);
+			-moz-box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: -8px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+		}
+
+		#tab {
+			border: none;
+			left: 0%;
+			width: 100%;
+			margin-top: 60px;
+			text-align: left;
+			height: 100%;
+			/* 	overflow:scroll; 
 	height: 100px;
 	overflow-x: hidden; */
-}
+		}
 
-.lie {
-	font-size: 20px;
-	color: #ccc;
-}
+		.lie {
+			font-size: 20px;
+			color: #ccc;
+		}
 
-.img1 {
-	width: 36px;
-	height: 36px;
-	margin-left: 20px;
-	height: 36px;
-}
+		.img1 {
+			cursor: pointer;
+			width: 36px;
+			height: 36px;
+			margin-left: 20px;
+			height: 36px;
+		}
 
-.img2 {
-	width: 100%;
-}
-</style>
+		.img2 {
+			width: 100%;
+		}
+
+		#tan {
+			padding: 10px;
+			position: absolute;
+			float: left;
+			z-index: 50;
+			width: 480px;
+			height: 350px;
+			border-radius: 2px;
+			background: #FFFFFF;
+			-moz-box-shadow: 0px 0px 10px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 0px 0px 10px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 0px 0px 10px rgba(174, 174, 174, 0.349019607843137);
+			left: 50%;
+			top: 50%;
+			margin-top: -175px;
+			margin-left: -240px;
+			text-align: center;
+		}
+
+		.name_t {
+			margin-top: 10px;
+			background-color: #FAFAFA;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+		}
+
+		#login_b {
+			cursor: pointer;
+			border-radius: 2px;
+			line-height: 56px;
+			margin-top: 20px;
+			color: #FFF;
+			background-color: #448AFF;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+			-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			border-radius: 2px;
+		}
+
+		#up {
+			cursor: pointer;
+			text-align: center;
+			background-color: #FAFAFA;
+			width: 50%;
+			float: left;
+			height: 56px;
+			line-height: 56px;
+			font-size: 20px;
+		}
+
+		#del {
+			cursor: pointer;
+			text-align: center;
+			color: red;
+			background-color: #FAFAFA;
+			height: 56px;
+			line-height: 56px;
+			font-size: 20px;
+		}
+		#cha {
+			cursor: pointer;
+		}
+	</style>
+	<script type="text/javascript">
+		function xuan(e) {
+			var rows = document.getElementById("tab").rows;
+			for (var i = 1; i < rows.length; i++) {
+				rows[i].style.cssText = "background-color: #FaFaFa;";;
+			}
+			this.style.cssText = "background-color: rgba(3, 169, 244, 0.2);";
+			document.getElementById("con").innerHTML = this.cells[1].innerHTML;
+		}
+
+		function init() {
+			document.getElementById("tan").style.display = "none";
+			var rows = document.getElementById("tab").rows;
+			for (var i = 1; i < rows.length; i++) {
+				rows[i].onclick = xuan;
+			}
+		}
+
+		function jia() {
+			document.getElementById("tan").style.display = "";
+		}
+		function cha() {
+			document.getElementById("tan").style.display = "none";
+		}
+		function up() {
+			document.getElementById("tan").style.display = "";
+		}
+		function del() {
+			document.getElementById("tan").style.display = "none";
+		}
+	</script>
 </head>
-<body>
+
+<body onload="init()">
+	<div id="tan">
+		<form id="form2" method="post" action="login.action">
+			<div style="height: 36px;	text-align: right; font-size: 36px; margin-right: 10px;"><span id="cha" onclick="cha()">×</span></div>
+			<input type="text" class="name_t" name="filename" placeholder="请输入文件名称" spellcheck="false" />
+			<input type="hidden" name="name" placeholder="请输入文件名称" spellcheck="false" />
+			<select class="name_t" name="type"> 
+			<option value="text">text</option> 
+			<option value="java">java</option> 
+			<option value="doc">doc</option> 
+			</select>
+			<select class="name_t" name="power"> 
+			<option value="仅自己可写">仅自己可写</option> 
+			<option value="所有人可写">所有人可写</option> 
+			</select>
+			<input id="login_b" type="submit" value="增加" />
+		</form>
+	</div>
 	<div id="title"></div>
 	<div id="title_t">edit > 朱成龙</div>
 	<div id="logo">
@@ -114,129 +240,13 @@ a {
 	<div id="tou">
 		<img id="tou_img" src="images/tou.gif">
 	</div>
-	<div style="overflow-x: hidden; overflow-y: auto; height:100%; width: 80%; float: left;">
-		<table id="tab" width="auto" border="0" cellpadding="0"
-			cellspacing="0">
+	<div style="overflow-x: hidden; overflow-y: auto; height:auto; width: 80%; float: left;">
+		<table id="tab" width="auto" border="0" cellpadding="0" cellspacing="0">
 			<tr>
-				<td class="lie" width="5%" height="64px" valign="middle"><img
-					src="images/jia.png" class="img1" /></td>
+				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1" onclick="jia()"/></td>
 				<td class="lie" width="20%">名称</td>
 				<td class="lie" width="20%">创建者</td>
 				<td class="lie" width="20%">时间</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr >
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr style="background-color: rgba(3, 169, 244, 0.2);">
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
 			</tr>
 			<tr>
 				<td height="64px"><img src="images/u4.png" class="img1" /></td>
@@ -248,10 +258,13 @@ a {
 	</div>
 	<div id="msg">
 		<img class="img2" src="images/bei.jpg" />
+		<div id="up" onclick="up()">修改</div>
+		<div id="del" onclick="del()">删除</div>
 		<div id="con" style="padding: 16px;"></div>
 	</div>
 
 
 
 </body>
+
 </html>
