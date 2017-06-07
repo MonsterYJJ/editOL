@@ -24,22 +24,28 @@ connection.query( 
                 u.name = results[0].user_name;
                 u.userid = results[0].user_id;
                 u.pwd = results[0].user_pwd;      
-                console.log(u);    
+                   
             if(user.userid=== u.userid&&u.pwd===user.pwd)
             {
-            request.session.id=u.id;
-            request.session.name=u.name;
-            request.session.userid=u.userid;
-           response.send("ok");
+            console.log(u);
+            
+             response.writeHead(200,{"Content-Type":"text/html"});
+                response.write(JSON.stringify(u));
+                   response.end();
+           // response.redirect("/list");
             }
             else
-            {
-                response.send("账号密码错误");
+            { response.writeHead(200,{"Content-Type":"text/html"});
+                response.write("账号密码错误");
+                 response.end();
             }
 
       }
-        else
-        response.send("账号不存在");   
+        else{
+            response.writeHead(200,{"Content-Type":"text/html"});
+        response.write("账号不存在");   
+         response.end();
+        }
     connection.end(); 
 
   } 

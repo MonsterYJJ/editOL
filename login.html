@@ -1,118 +1,157 @@
-<!doctype html>
+﻿<!doctype html>
 <html>
+
 <head>
-<meta charset="utf-8">
-<title>edit_OL</title>
-<style type="text/css">
-body {
-	background-color: #FaFaFa;
-	text-align: center;
-}
+	<meta charset="utf-8">
+	<title>edit_OL</title>
+	<style type="text/css">
+		body {
+			background-color: #FaFaFa;
+			text-align: center;
+		}
 
-#msg {
-	position: absolute;
-	width: 480px;
-	height: 668px;
-	border-radius: 2px;
-	background: #FFFFFF;
-	-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	left: 50%;
-	top: 50%;
-	margin-top: -334px;
-	margin-left: -240px;
-	text-align: center;
-}
+		#msg {
+			position: absolute;
+			width: 480px;
+			height: 668px;
+			border-radius: 2px;
+			background: #FFFFFF;
+			-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			left: 50%;
+			top: 50%;
+			margin-top: -334px;
+			margin-left: -240px;
+			text-align: center;
+		}
 
-#title {
-	font-size: 72px;
-}
+		#title {
+			font-size: 72px;
+		}
 
-#login {
-	cursor: hand;
-	width: 50%;
-	float: left;
-	font-size: 20px;
-	width: 50%;
-}
+		#login {
+			cursor: hand;
+			width: 50%;
+			float: left;
+			font-size: 20px;
+			width: 50%;
+		}
 
-#res {
-	cursor: hand;
-	font-size: 20px;
-}
+		#res {
+			cursor: hand;
+			font-size: 20px;
+		}
 
-#login_b {
-	cursor: hand;
-	border-radius: 2px;
-	line-height: 56px;
-	margin-top: 20px;
-	color: #FFF;
-	background-color: #448AFF;
-	width: 60%;
-	height: 56px;
-	border: none;
-	outline: none;
-	font-size: 20px;
-	-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	border-radius: 2px;
-}
+		#login_b {
+			cursor: hand;
+			border-radius: 2px;
+			line-height: 56px;
+			margin-top: 20px;
+			color: #FFF;
+			background-color: #448AFF;
+			width: 60%;
+			margin-left: 20%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+			-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			border-radius: 2px;
+		}
 
-.name_t {
-	margin-top: 10px;
-	background-color: #FAFAFA;
-	width: 60%;
-	height: 56px;
-	border: none;
-	outline: none;
-	font-size: 20px;
-}
+		.name_t {
+			margin-top: 10px;
+			background-color: #FAFAFA;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+		}
 
-#pwd_t {
-	margin-top: 10px;
-	background-color: #FAFAFA;
-	width: 60%;
-	height: 56px;
-	border: none;
-	outline: none;
-	font-size: 20px;
-}
+		#pwd_t {
+			margin-top: 10px;
+			background-color: #FAFAFA;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+		}
 
-#xian {
-	float: left;
-	margin-top: 10px;
-	margin-left: 20%;
-	background-color: #e2e2e2;
-	height: 1px;
-	width: 60%;
-	margin-bottom: 10px;
-}
+		#xian {
+			float: left;
+			margin-top: 10px;
+			margin-left: 20%;
+			background-color: #e2e2e2;
+			height: 1px;
+			width: 60%;
+			margin-bottom: 10px;
+		}
 
-#xian2 {
-	margin-top: 10px;
-	margin-left: 25%;
-	background-color: #03A9F4;
-	height: 4px;
-	width: 20%;
-	margin-bottom: 10px;
-}
+		#xian2 {
+			margin-top: 10px;
+			margin-left: 25%;
+			background-color: #03A9F4;
+			height: 4px;
+			width: 20%;
+			margin-bottom: 10px;
+		}
+	</style>
+	<script type="text/javascript">
+		var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		}
+		else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 
-</style>
-<script type="text/javascript">
-	function zhu() {
-		document.getElementById("xian2").style.cssText = "margin-left:55%;";
-		document.getElementById("form1").style.display="none";
-		document.getElementById("form2").style.display="";
-	}
-	function deng() {
-		document.getElementById("xian2").style.cssText = "margin-left:25%;";
-		document.getElementById("form2").style.display="none";
-		document.getElementById("form1").style.display="";
-	}
-</script>
+		}
+		function zhu() {
+			document.getElementById("xian2").style.cssText = "margin-left:55%;";
+			document.getElementById("form1").style.display = "none";
+			document.getElementById("form2").style.display = "";
+		}
+		function deng() {
+			document.getElementById("xian2").style.cssText = "margin-left:25%;";
+			document.getElementById("form2").style.display = "none";
+			document.getElementById("form1").style.display = "";
+		}
+		function login() {
+			var userid = document.getElementById("userid").value;
+			var pwd = document.getElementById("pwd_t").value;
+			
+			xmlhttp.open("post", "http://127.0.0.1:8888/login", true);
+			
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var res = xmlhttp.responseText;
+					if(res==='账号密码错误'||res==='账号不存在')
+					alert(res);
+					else {
+					var json = JSON.parse(res);
+					var session = window.sessionStorage;
+					session.clear;
+					session.setItem("uid",json.id);
+					session.setItem("name",json.name);
+					session.setItem("userid",json.userid);
+					session.setItem("pwd",json.pwd);
+					window.location="http://127.0.0.1:8888/list"
+				}
+					
+				}
+
+			}
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("userid=" + userid + "&pwd=" + pwd);
+		}
+
+	</script>
 </head>
+
 <body onload="deng()">
 	<div id="msg">
 		<p id="title">editOL</p>
@@ -122,18 +161,19 @@ body {
 		</div>
 		<div id="xian"></div>
 		<div id="xian2"></div>
-		<form id="form1" method="post" action="login.action">
-			<input type="text" class="name_t" name="name" placeholder="  账号" spellcheck="false" />
-			<input type="password" id="pwd_t" name="pwd" placeholder=" 密码" spellcheck="false" />
+		<form id="form1" method="post" action="http://127.0.0.1:8888/login">
+			<input type="text" class="name_t" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
+			<input type="password" id="pwd_t"  name="pwd" placeholder=" 密码" spellcheck="false" />
 			<input type="hidden" name="type" value="user" />
-			<input id="login_b" type="submit" value="登陆" />
+			<div id="login_b" onclick="login()">登陆</div>
 		</form>
-		<form id="form2" method="post" action="login.action" >
-			<input type="text" class="name_t" name="name" placeholder="  账号" spellcheck="false" />
-			<input type="text" name="type" class="name_t" placeholder="  姓名" />
-			<input type="password" id="pwd_t" name="pwd" placeholder=" 密码" spellcheck="false" />
-			<input id="login_b" type="submit" value="登陆" />
+		<form id="form2" method="post" action="http://127.0.0.1:8888/regist">
+			<input type="text" class="name_t" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
+			<input type="text" id="name" name="name" class="name_t" placeholder="  姓名" />
+			<input type="password" id="pwd_t"  name="pwd" placeholder=" 密码" spellcheck="false" />
+			<div id="login_b">注册</div>
 		</form>
 	</div>
 </body>
+
 </html>
