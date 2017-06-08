@@ -81,6 +81,15 @@
 			outline: none;
 			font-size: 20px;
 		}
+			#pwd_t2{
+			margin-top: 10px;
+			background-color: #FAFAFA;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+		}
 #login {
 	cursor: pointer;
 	width: 50%;
@@ -94,7 +103,7 @@
 	font-size: 20px;
 }
 
-#login_b {
+#login_b,#login_x {
 	cursor: pointer;
 	border-radius: 2px;
 	line-height: 56px;
@@ -102,6 +111,7 @@
 	color: #FFF;
 	background-color: #448AFF;
 	width: 60%;
+	margin-left: 20%;
 	height: 56px;
 	border: none;
 	outline: none;
@@ -179,6 +189,35 @@
 			xmlhttp.send("userid=" + userid + "&pwd=" + pwd);
 		}
 
+			function regist() {
+			var userid = document.getElementById("userid2").value;
+			var pwd = document.getElementById("pwd_t2").value;
+			var name = document.getElementById("name2").value;
+
+			xmlhttp.open("post", "http://127.0.0.1:8888/regist", true);
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var res = xmlhttp.responseText;
+					if(res==='账号已存在')
+					alert(res);
+					else {
+					document.getElementById("userid").value = userid;
+					document.getElementById("pwd_t").value = pwd;
+					var button = document.getElementById("login_x")
+					button.onclick();
+				}
+					
+				}
+
+			}
+				if(userid===""||pwd===""||name===""){
+					alert("注册信息不能为空");
+			}else{
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("userid=" + userid + "&pwd=" + pwd + "&name="+name);
+		}
+		}
+
 	</script>
 </head>
 
@@ -195,13 +234,13 @@
 			<input type="text" class="name_t" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
 			<input type="password" id="pwd_t"  name="pwd" placeholder=" 密码" spellcheck="false" />
 			<input type="hidden" name="type" value="user" />
-			<div id="login_b" onclick="login()">登陆</div>
+			<div id="login_x" onclick="login()">登陆</div>
 		</form>
 		<form id="form2" method="post" action="http://127.0.0.1:8888/regist">
-			<input type="text" class="name_t" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
-			<input type="text" id="name" name="name" class="name_t" placeholder="  姓名" />
-			<input type="password" id="pwd_t"  name="pwd" placeholder=" 密码" spellcheck="false" />
-			<div id="login_b">注册</div>
+			<input type="text" class="name_t" id="userid2" name="userid" placeholder="  账号" spellcheck="false" />
+			<input type="text" id="name2" name="name" class="name_t" placeholder="  姓名" />
+			<input type="password" id="pwd_t2"  name="pwd" placeholder=" 密码" spellcheck="false" />
+			<div id="login_b" onclick="regist()">注册</div>
 		</form>
 	</div>
 </body>

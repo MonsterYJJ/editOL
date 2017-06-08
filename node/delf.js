@@ -1,5 +1,5 @@
-
-var mysql = require('mysql');
+module.exports = function (file,request,response) {
+    var mysql = require('mysql');
 //创建连接  
 var connection = mysql.createConnection({    
   host     : '127.0.0.1',      
@@ -10,9 +10,9 @@ var connection = mysql.createConnection({    
 });
 connection.connect();
 
-var  userGetSql = 'INSERT INTO tb_files(id,file_name,file_date,file_text,file_by) VALUES(0,?,?,?,?)';
-var userModSql_Params = ["ann","ann","ann","1"];
-
+var  userGetSql = 'DELETE FROM tb_files WHERE id = ?';
+var userModSql_Params = [];
+userModSql_Params.push(file.id);
 connection.query( 
   userGetSql, userModSql_Params,
   function selectCb(err, results) { 
@@ -21,8 +21,10 @@ connection.query( 
     } 
        if(results)
       {
-            console.log('-------INSERT----------');
+         response.send();
+          console.log('-------------DELETE--------------');
       }   
     connection.end(); 
   } 
 );
+}

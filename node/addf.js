@@ -1,6 +1,5 @@
-
+module.exports = function (file,request,response) {
 var mysql = require('mysql');
-//创建连接  
 var connection = mysql.createConnection({    
   host     : '127.0.0.1',      
   user     : 'root',             
@@ -9,11 +8,21 @@ var connection = mysql.createConnection({    
   database: 'editol',
 });
 connection.connect();
-
 var  userGetSql = 'INSERT INTO tb_files(id,file_name,file_date,file_text,file_by) VALUES(0,?,?,?,?)';
-var userModSql_Params = ["ann","ann","ann","1"];
+var userModSql_Params = [];
+userModSql_Params.push(file.name);
 
-connection.query( 
+var date = new Date(); 
+var year = date.getFullYear();
+var month = date.getMonth()+1;
+var day = date.getDate();
+var time = year + "-" + month +"-"+ day;
+
+userModSql_Params.push(time);
+userModSql_Params.push('');
+userModSql_Params.push(file.by);
+
+    connection.query( 
   userGetSql, userModSql_Params,
   function selectCb(err, results) { 
     if (err) { 
@@ -21,8 +30,10 @@ connection.query( 
     } 
        if(results)
       {
+           response.send();
             console.log('-------INSERT----------');
       }   
     connection.end(); 
   } 
 );
+}

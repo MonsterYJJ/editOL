@@ -115,8 +115,8 @@
 			position: absolute;
 			float: left;
 			z-index: 50;
-			width: 480px;
-			height: 350px;
+			width: 400px;
+			height: 200px;
 			border-radius: 2px;
 			background: #FFFFFF;
 			-moz-box-shadow: 0px 0px 10px rgba(174, 174, 174, 0.349019607843137);
@@ -124,8 +124,8 @@
 			box-shadow: 0px 0px 10px rgba(174, 174, 174, 0.349019607843137);
 			left: 50%;
 			top: 50%;
-			margin-top: -175px;
-			margin-left: -240px;
+			margin-top: -100px;
+			margin-left: -200px;
 			text-align: center;
 		}
 
@@ -143,6 +143,7 @@
 			cursor: pointer;
 			border-radius: 2px;
 			line-height: 56px;
+			margin-left: 20%;
 			margin-top: 20px;
 			color: #FFF;
 			background-color: #448AFF;
@@ -157,16 +158,6 @@
 			border-radius: 2px;
 		}
 
-		#up {
-			cursor: pointer;
-			text-align: center;
-			background-color: #FAFAFA;
-			width: 50%;
-			float: left;
-			height: 56px;
-			line-height: 56px;
-			font-size: 20px;
-		}
 
 		#del {
 			cursor: pointer;
@@ -182,21 +173,94 @@
 		}
 	</style>
 	<script type="text/javascript">
+	var xmlhttp;
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		}
+		else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var json ;
+		var session = window.sessionStorage;
+		var by = session.getItem("uid");
+		
 		function xuan(e) {
 			var rows = document.getElementById("tab").rows;
+			var div_del = document.getElementById('del');
 			for (var i = 1; i < rows.length; i++) {
 				rows[i].style.cssText = "background-color: #FaFaFa;";;
 			}
 			this.style.cssText = "background-color: rgba(3, 169, 244, 0.2);";
-			document.getElementById("con").innerHTML = this.cells[1].innerHTML;
+			document.getElementById("con").innerHTML = this.cells[5].innerHTML;
+			div_del.title=this.cells[4].innerHTML;
 		}
-
+		
+		function go_edit(){
+			//session.removeItem("file");
+			window.location="http://127.0.0.1:8888/edit?id="+this.title;
+		}
 		function init() {
-			document.getElementById("tan").style.display = "none";
-			var rows = document.getElementById("tab").rows;
-			for (var i = 1; i < rows.length; i++) {
-				rows[i].onclick = xuan;
+			if(by===null)
+			window.location="http://127.0.0.1:8888/";
+
+			xmlhttp.open("post", "http://127.0.0.1:8888/getf", true);
+			xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var tab = document.getElementById("tab");
+					var trr = document.getElementById("tr");
+					tab.innerHTML='';
+					tab.appendChild(trr);
+					var res = xmlhttp.responseText;
+					var json = JSON.parse(res);
+					session.setItem("res",res);
+					var title_t = document.getElementById("title_t");
+					for(var i = 0 ;i<json.length;i++ ){
+						var tr =document.createElement("tr");
+						var tdd =document.createElement("td");
+						 var img = document.createElement("img");
+ 							img.src="images/u4.png";
+							img.className="img1"
+							tdd.appendChild(img);
+							tdd.height='64px';
+							tr.appendChild(tdd);
+							img.onclick=go_edit;
+						for(var t  in json[i] ){
+							var td =document.createElement("td");
+							 if(t==="file_name")			
+							td.innerHTML=json[i][t];
+							else if (t==="file_by")
+							td.innerHTML=session.name;
+							else if (t==="file_date")
+							td.innerHTML=json[i][t];
+							else if (t==="id"){
+							td.innerHTML=json[i][t];
+							img.title=json[i][t];
+							td.style.display = "none";
+						}
+							else if (t==="file_text"){
+							td.innerHTML=json[i][t];
+							td.style.display = "none";
+						}
+							else 
+							continue;
+							tr.appendChild(td);			
+						}
+						tab.appendChild(tr);
+						
+					}
+						var rows =tab.rows;
+						for (var i = 1; i < rows.length; i++) {
+						rows[i].onclick = xuan;
+					}
+					title_t.innerHTML= '<a style="cursor: pointer;" onclick="javascript :history.back(-1)" >edit</a>' + ' > '+session.name;
+				}
+					
 			}
+			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("by=" + by);
+
+			document.getElementById("tan").style.display = "none";
+			
 		}
 
 		function jia() {
@@ -209,27 +273,59 @@
 			document.getElementById("tan").style.display = "";
 		}
 		function del() {
-			document.getElementById("tan").style.display = "none";
+			var div_del = document.getElementById('del');
+				if(div_del.title.length==0)
+				alert("请选择要删除的文件");
+				xmlhttp.open("post", "http://127.0.0.1:8888/delf", true);
+				xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+					var bd = document.getElementById('bd');
+					bd.onload();
+				
+					div_del.title='';					
+				}
+					
+				}
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("id=" + div_del.title);
+			
 		}
+		function addf() {
+			var name = document.getElementById("fname").value;
+			
+			if(name.length===0)
+			alert("文件名为空");
+			else{
+			document.getElementById("tan").style.display = "none";
+			
+			xmlhttp.open("post", "http://127.0.0.1:8888/addf", true);
+				xmlhttp.onreadystatechange = function () {
+				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				
+					var bd = document.getElementById('bd');
+					bd.onload();
+				
+				}
+					
+				}
+	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.send("name=" + name + "&by=" + by);
+
+			}
+			
+			}
+		
+
 	</script>
 </head>
 
-<body onload="init()">
+<body id="bd" onload="init()">
 	<div id="tan">
 		<form id="form2" method="post" action="login.action">
 			<div style="height: 36px;	text-align: right; font-size: 36px; margin-right: 10px;"><span id="cha" onclick="cha()">×</span></div>
-			<input type="text" class="name_t" name="filename" placeholder="请输入文件名称" spellcheck="false" />
-			<input type="hidden" name="name" placeholder="请输入文件名称" spellcheck="false" />
-			<select class="name_t" name="type"> 
-			<option value="text">text</option> 
-			<option value="java">java</option> 
-			<option value="doc">doc</option> 
-			</select>
-			<select class="name_t" name="power"> 
-			<option value="仅自己可写">仅自己可写</option> 
-			<option value="所有人可写">所有人可写</option> 
-			</select>
-			<input id="login_b" type="submit" value="增加" />
+			<input type="text" class="name_t" id="fname" name="filename" placeholder="请输入文件名称" spellcheck="false" />
+			<input type="hidden" name="name" placeholder="请输入文件名称" spellcheck="false" />			 
+			<div id="login_b"   onclick="addf()">增加</div>
 		</form>
 	</div>
 	<div id="title"></div>
@@ -242,23 +338,20 @@
 	</div>
 	<div style="overflow-x: hidden; overflow-y: auto; height:auto; width: 80%; float: left;">
 		<table id="tab" width="auto" border="0" cellpadding="0" cellspacing="0">
-			<tr>
+			<tr id='tr'>
 				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1" onclick="jia()"/></td>
 				<td class="lie" width="20%">名称</td>
 				<td class="lie" width="20%">创建者</td>
 				<td class="lie" width="20%">时间</td>
+				<td class="lie" width="1%"></td>
+				<td class="lie" width="1%"></td>
 			</tr>
-			<tr>
-				<td height="64px"><img src="images/u4.png" class="img1" /></td>
-				<td>文件一</td>
-				<td>朱成龙</td>
-				<td>2016-07-05</td>
-			</tr>
+		
 		</table>
 	</div>
 	<div id="msg">
+		
 		<img class="img2" src="images/bei.jpg" />
-		<div id="up" onclick="up()">修改</div>
 		<div id="del" onclick="del()">删除</div>
 		<div id="con" style="padding: 16px;"></div>
 	</div>

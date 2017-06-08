@@ -21,8 +21,10 @@ connection.query( 
     } ;
        if(results.length>0)
       {    
-      
-         response.send("账号已存在");
+       response.writeHead(200,{"Content-Type":"text/html"});
+                response.write("账号已存在");
+                 response.end();
+         
         console.log('-------账号已存在----------');
       } 
         else{
@@ -36,8 +38,15 @@ connection.query( 
       throw err; 
     } 
        if(results)
-      { response.send("-------INSERT----------");
-            console.log('-------INSERT----------');
+      {  var u = Object.create(null);
+                u.name = user.name;
+                u.userid = user.userid;
+                u.pwd = user.pwd; 
+
+                console.log(JSON.stringify(u));
+            response.writeHead(200,{"Content-Type":"text/html"});
+                response.write(JSON.stringify(u));
+                   response.end();
            
       }   
     

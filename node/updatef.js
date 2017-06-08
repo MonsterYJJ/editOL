@@ -1,6 +1,5 @@
-
-var mysql = require('mysql');
-//创建连接  
+module.exports = function (file,request,response) {
+    var mysql = require('mysql');
 var connection = mysql.createConnection({    
   host     : '127.0.0.1',      
   user     : 'root',             
@@ -10,19 +9,21 @@ var connection = mysql.createConnection({    
 });
 connection.connect();
 
-var  userGetSql = 'INSERT INTO tb_files(id,file_name,file_date,file_text,file_by) VALUES(0,?,?,?,?)';
-var userModSql_Params = ["ann","ann","ann","1"];
-
+var  userGetSql = 'UPDATE tb_files SET file_text = ? WHERE id = ?';
+var userModSql_Params = [];
+userModSql_Params.push(file.text);
+userModSql_Params.push(file.id);
 connection.query( 
-  userGetSql, userModSql_Params,
-  function selectCb(err, results) { 
+  userGetSql,userModSql_Params ,
+  function selectCb(err, results, fields) { 
     if (err) { 
       throw err; 
     } 
        if(results)
       {
-            console.log('-------INSERT----------');
+          console.log('-------------UPDATE--------------');
       }   
     connection.end(); 
   } 
 );
+}
