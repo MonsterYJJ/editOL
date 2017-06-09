@@ -167,25 +167,35 @@
 		}
 	</style>
 	<script>
-		ws = new WebSocket('ws://122.235.97.165:18/editOL/socket');
-		myname = window.sessionStorage.getItem("userid")
-		document.getElementById('fan').innerHTML = myname;
+		function GetQueryString(name) {
+			return decodeURIComponent(name.substr(name.indexOf("=") + 1,
+				name.length));
+		}
+
+		ws = new WebSocket('ws://127.0.0.1:8181');
+		var session = window.sessionStorage;
+		myname = session.getItem("uid");
+		filename = "";
+		file_name = GetQueryString(window.location.href);
 
 		function init() {
 			if (myname == null) {
-				window.location.href = "http://122.235.97.165:18/editOL/login.jsp";
+				window.location.href = "http://127.0.0.1:8888/editOL/login.jsp";
 			}
 			window.onbeforeunload = function () {
 				sendclose();
+				var jsonx = {};
+				jsonx.type = "connect";
+				jsonx.flname = file_name;
+				jsonx.ssname = myname;
+				ws.send(JSON.stringify(jsonx));
 				return "刷新后聊天记录会消失";
 			}
-			ws.onopen = function () {
-				var json = {};
-				json.type = "connect";
-				json.flname = file_name;
-				json.ssname = myname;
-				ws.send(JSON.stringify(json));
-			}
+			var jsonx = {};
+			jsonx.type = "connect";
+			jsonx.flname = file_name;
+			jsonx.ssname = myname;
+			ws.send(JSON.stringify(jsonx));
 
 			ws.onmessage = function (evt) {
 				var obj = JSON.parse(evt.data);
@@ -203,7 +213,8 @@
 					}
 
 				} else if (obj.type == "textc") {
-
+					if (obj.flname != null)
+						filename = obj.flname;
 					pos = cursorPosition.get(document.getElementById('edit'));
 					l1 = document.getElementById('edit').value.length;
 					l2 = obj.msg.length;
@@ -266,12 +277,6 @@
 			ws.onclose();
 		}
 
-		function GetQueryString(name) {
-			file_name = decodeURIComponent(name.substr(name.indexOf("=") + 1,
-				name.length));
-			return decodeURIComponent(name.substr(name.indexOf("=") + 1,
-				name.length));
-		}
 
 		var DispClose = true;
 		function CloseEvent() {
@@ -358,10 +363,7 @@
 <body onload="init()" onbeforeunload="return CloseEvent();">
 	<div id="title"></div>
 	<div id="title_t">
-		edit >
-		<a id="fan" href="http://122.235.97.165:18/editOL/list.jsp">
-		
-		</a> >
+
 	</div>
 	<div id="logo">
 		<img id="tou_img" src="images/logo.png">
@@ -380,10 +382,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-		var html = document.getElementById("title_t").innerHTML;
-	
-		document.getElementById("title_t").innerHTML = html
-			+ GetQueryString(window.location.href);
+		document.getElementById('title_t').innerHTML = "edit > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >" + filename;
 
 </script>
 
