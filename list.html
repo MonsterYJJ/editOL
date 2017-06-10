@@ -2,6 +2,9 @@
 <html>
 
 <head>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<meta charset="utf-8">
 	<title>edit_OL</title>
 	<style type="text/css">
@@ -167,6 +170,7 @@
 			height: 56px;
 			line-height: 56px;
 			font-size: 20px;
+			
 		}
 		#cha {
 			cursor: pointer;
@@ -191,7 +195,12 @@
 				rows[i].style.cssText = "background-color: #FaFaFa;";;
 			}
 			this.style.cssText = "background-color: rgba(3, 169, 244, 0.2);";
-			document.getElementById("con").innerHTML = this.cells[5].innerHTML;
+			var str = this.cells[5].innerHTML;
+			document.getElementById("con").innerHTML = str;
+			var textLeng = 10;
+			if(str.length >textLeng  ){
+			document.getElementById("con").innerHTML=str.substring(0,textLeng )+"... ...";
+			}
 			div_del.title=this.cells[4].innerHTML;
 		}
 		
@@ -291,8 +300,9 @@
 			
 		}
 		function addf() {
-			var name = document.getElementById("fname").value;
+			//var name = document.getElementById("fname").value;
 			
+			var name = document.getElementById("wjName").value;
 			if(name.length===0)
 			alert("文件名为空");
 			else{
@@ -339,7 +349,7 @@
 	<div style="overflow-x: hidden; overflow-y: auto; height:auto; width: 80%; float: left;">
 		<table id="tab" width="auto" border="0" cellpadding="0" cellspacing="0">
 			<tr id='tr'>
-				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1" onclick="jia()"/></td>
+				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1"  data-toggle="modal" data-target="#myModal"/></td>
 				<td class="lie" width="20%">名称</td>
 				<td class="lie" width="20%">创建者</td>
 				<td class="lie" width="20%">时间</td>
@@ -357,7 +367,32 @@
 	</div>
 
 
-
+ <!-- 模态框（Modal） -->
+    <div class="modal fade" id="myModal" tabindex="-1" style='margin-top:10%' role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					新增文件
+				</h4>
+			</div>
+			<div class="modal-body">
+                <input id="wjName" type="text" class="form-control" placeholder="文件名" >
+           
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+				</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="addf();">
+					提交
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
 </body>
 
 </html>
