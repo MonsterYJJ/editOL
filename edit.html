@@ -172,7 +172,7 @@
 				name.length));
 		}
 
-		var ws = new WebSocket('ws://127.0.0.1:8181');
+		var ws = new WebSocket('ws://122.235.102.172:8999');
 		var session = window.sessionStorage;
 		var myname = session.getItem("uid");
 		var filename = "";
@@ -181,7 +181,7 @@
 		function init() {
 
 			if (myname == null) {
-				window.location.href = "http://127.0.0.1:8888";
+				window.location.href = "http://122.235.102.172:8888";
 			}
 		};
 

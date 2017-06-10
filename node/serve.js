@@ -28,14 +28,7 @@ app.use(session({
 
 var methods = Object.create(null);
 
-var server = app.listen(8888, function () {
-
-    var host = server.address().address
-    var port = server.address().port
-
-    console.log("应用实例，访问地址为 http://%s:%s", host, port)
-
-});
+var server = app.listen(8888,"0.0.0.0");
 
 
 var mysql = require('mysql');
@@ -415,4 +408,4 @@ methods.getfbyid = function (query, request, response) {
 }
 
 // 终端打印如下信息
-console.log('Server running at http://127.0.0.1:8888/');
+//console.log('Server running at http://127.0.0.1:8888/');

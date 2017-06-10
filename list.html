@@ -197,7 +197,7 @@
 			this.style.cssText = "background-color: rgba(3, 169, 244, 0.2);";
 			var str = this.cells[5].innerHTML;
 			document.getElementById("con").innerHTML = str;
-			var textLeng = 10;
+			var textLeng = 200;
 			if(str.length >textLeng  ){
 			document.getElementById("con").innerHTML=str.substring(0,textLeng )+"... ...";
 			}
@@ -206,13 +206,13 @@
 		
 		function go_edit(){
 			//session.removeItem("file");
-			window.location="http://127.0.0.1:8888/edit?id="+this.title;
+			window.location="http://122.235.102.172:8888/edit?id="+this.title;
 		}
 		function init() {
 			if(by===null)
-			window.location="http://127.0.0.1:8888/";
+			window.location="http://122.235.102.172:8888/";
 
-			xmlhttp.open("post", "http://127.0.0.1:8888/getf", true);
+			xmlhttp.open("post", "http://122.235.102.172:8888/getf", true);
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var tab = document.getElementById("tab");
@@ -285,7 +285,7 @@
 			var div_del = document.getElementById('del');
 				if(div_del.title.length==0)
 				alert("请选择要删除的文件");
-				xmlhttp.open("post", "http://127.0.0.1:8888/delf", true);
+				xmlhttp.open("post", "http://122.235.102.172:8888/delf", true);
 				xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var bd = document.getElementById('bd');
@@ -308,7 +308,7 @@
 			else{
 			document.getElementById("tan").style.display = "none";
 			
-			xmlhttp.open("post", "http://127.0.0.1:8888/addf", true);
+			xmlhttp.open("post", "http://122.235.102.172:8888/addf", true);
 				xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 				

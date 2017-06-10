@@ -30,6 +30,7 @@
 		}
 
 		#title {
+			margin-top: 20%;
 			font-size: 72px;
 		}
 
@@ -97,7 +98,7 @@
 #login_b,#login_x {
 	cursor: pointer;
 	border-radius: 2px;
-	line-height: 56px;
+	line-height: 40px;
 	margin-top: 20px;
 	
 	background-color: #448AFF;
@@ -198,7 +199,7 @@
 			alert('请输入账号密码');
 			return;
 			}
-			xmlhttp.open("post", "http://127.0.0.1:8888/login", true);
+			xmlhttp.open("post", "http://122.235.102.172:8888/login", true);
 			
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -213,7 +214,7 @@
 					session.setItem("name",json.name);
 					session.setItem("userid",json.userid);
 					session.setItem("pwd",json.pwd);
-					window.location="http://127.0.0.1:8888/list"
+					window.location.href="http://122.235.102.172:8888/list"
 				}
 					
 				}
@@ -228,7 +229,7 @@
 			var pwd = document.getElementById("pwd_t2").value;
 			var name = document.getElementById("name2").value;
 
-			xmlhttp.open("post", "http://127.0.0.1:8888/regist", true);
+			xmlhttp.open("post", "http://122.235.102.172:8888/regist", true);
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var res = xmlhttp.responseText;
@@ -264,13 +265,13 @@
 		</div>
 		<div id="xian"></div>
 		<div id="xian2"></div>
-		<form id="form1" method="post" action="http://127.0.0.1:8888/login">
+		<form id="form1" method="post" action="http://122.235.102.172:8888/login">
 			<input type="text" class="name_t form-control" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
 			<input type="password" id="pwd_t"  class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
 			<input type="hidden" name="type" value="user" />
 			<div id="login_x" onclick="login()" class='btn btn-primary'>登陆</div>
 		</form>
-		<form id="form2" method="post" action="http://127.0.0.1:8888/regist">
+		<form id="form2" method="post" action="http://122.235.102.172:8888/regist">
 			<input type="text" class="name_t form-control" id="userid2" name="userid" placeholder="  账号" spellcheck="false" />
 			<input type="text" id="name2" name="name" class="name_t form-control" placeholder="  姓名" />
 			<input type="password" id="pwd_t2"  class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
