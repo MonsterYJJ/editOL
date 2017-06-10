@@ -19,8 +19,6 @@
 			border-radius: 0px;
 			background-color: rgba(3, 169, 244, 1);
 			box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
-			-moz-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
-			-webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
 		}
 
 		#logo {
@@ -91,13 +89,13 @@
 		}
 
 		#msg {
-			position: absolute;
+			position: fixed;
 			left: 72%;
 			float: left;
 			width: 20%;
-			margin-top: 194px;
+			margin-top: 10%;
 			padding: 16px;
-			height: 500px;
+			height: 50%;
 			background-color: rgba(255, 255, 255, 1);
 			-moz-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
 			-webkit-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
@@ -137,6 +135,7 @@
 		}
 
 		#send {
+			cursor: pointer;
 			position: absolute;
 			left: 90%;
 			height: 36px;
@@ -155,64 +154,236 @@
 			height: 20px;
 			border: none;
 			outline: none;
-			/*--
-	overflow-y: hidden;
-	overflow-x: hidden;
-	resize:none;--*/
+		}
+
+		a:link {
+			color: #448AFF;
+			text-decoration: underline;
+		}
+
+		a:visited {
+			color: #ccc;
+			text-decoration: none;
 		}
 	</style>
 	<script>
-	
+		function GetQueryString(name) {
+			return decodeURIComponent(name.substr(name.indexOf("=") + 1,
+				name.length));
+		}
+
+		ws = new WebSocket('ws://127.0.0.1:8181');
+		var session = window.sessionStorage;
+		myname = session.getItem("uid");
+		filename = "";
+		file_name = GetQueryString(window.location.href);
+
+		function init() {
+			if (myname == null) {
+				window.location.href = "http://127.0.0.1:8888/editOL/login.jsp";
+			}
+			window.onbeforeunload = function () {
+				sendclose();
+				var jsonx = {};
+				jsonx.type = "connect";
+				jsonx.flname = file_name;
+				jsonx.ssname = myname;
+				ws.send(JSON.stringify(jsonx));
+				return "刷新后聊天记录会消失";
+			}
+			var jsonx = {};
+			jsonx.type = "connect";
+			jsonx.flname = file_name;
+			jsonx.ssname = myname;
+			ws.send(JSON.stringify(jsonx));
+
+			ws.onmessage = function (evt) {
+				var obj = JSON.parse(evt.data);
+				var html;
+				if (obj.type == "msgc") {
+					if (obj.name == myname) {
+						html = document.getElementById("msg_list").innerHTML;
+						document.getElementById("msg_list").innerHTML = html
+							+ "<div class='right'>" + obj.msg + "</div>";
+					} else {
+						html = document.getElementById("msg_list").innerHTML;
+						document.getElementById("msg_list").innerHTML = html
+							+ "<div class='left'>" + obj.msg + "</div>"
+							+ "<p class='time'>" + obj.name + "</p>";
+					}
+
+				} else if (obj.type == "textc") {
+					if (obj.flname != null)
+						filename = obj.flname;
+					pos = cursorPosition.get(document.getElementById('edit'));
+					l1 = document.getElementById('edit').value.length;
+					l2 = obj.msg.length;
+					document.getElementById('edit').value = obj.msg;
+					if (obj.guang < pos.end) {
+						pos.end = pos.end + l2 - l1;
+						pos.start = pos.start + l2 - l1;
+						cursorPosition.set(document.getElementById('edit'), pos);
+					} else
+						cursorPosition.set(document.getElementById('edit'), pos);
+				}
+
+			};
+			ws.onclose = function () {
+				//oUl.innerHTML += "<li>客户端已断开连接</li>";
+			};
+			ws.onerror = function (evt) {
+				//oUl.innerHTML += "<li>" + evt.data + "</li>";
+
+			};
+		};
+
+		function sendx() {
+			if (ws) {
+				var json = {};
+				json.msg = document.getElementById('edit_s').value;
+				json.type = "msgs";
+				json.flname = file_name;
+				json.ssname = myname;
+
+				ws.send(JSON.stringify(json));
+			}
+		}
+
+		function sendclose() {
+			if (ws) {
+				var json = {};
+				json.msg = document.getElementById('edit').value;
+				json.type = "close";
+				json.flname = file_name;
+				json.ssname = myname;
+
+				ws.send(JSON.stringify(json));
+			}
+		}
+
+		function sendt(va) {
+			if (ws) {
+				var json = {};
+				json.msg = va;
+				json.type = "texts";
+				json.flname = file_name;
+				json.ssname = myname;
+				json.guang = cursorPosition.get(document.getElementById('edit')).end;
+				ws.send(JSON.stringify(json));
+			}
+		}
+
+		window.onbeforeunload = function () {
+			ws.onclose();
+		}
+
+
+		var DispClose = true;
+		function CloseEvent() {
+			if (DispClose) {
+				sendclose();
+				return "是否离开当前页面?";
+			}
+		}
+
+		function OnInput(event) {
+			sendt(event.target.value);
+		}
+
+		var cursorPosition = {
+			get: function (textarea) {
+				var rangeData = {
+					text: "",
+					start: 0,
+					end: 0
+				};
+
+				if (textarea.setSelectionRange) { // W3C	
+					textarea.focus();
+					rangeData.start = textarea.selectionStart;
+					rangeData.end = textarea.selectionEnd;
+					rangeData.text = (rangeData.start != rangeData.end) ? textarea.value
+						.substring(rangeData.start, rangeData.end)
+						: "";
+				} else if (document.selection) { // IE
+					textarea.focus();
+					var i, oS = document.selection.createRange(),
+						// Don't: oR = textarea.createTextRange()
+						oR = document.body.createTextRange();
+					oR.moveToElementText(textarea);
+
+					rangeData.text = oS.text;
+					rangeData.bookmark = oS.getBookmark();
+
+					// object.moveStart(sUnit [, iCount]) 
+					// Return Value: Integer that returns the number of units moved.
+					for (i = 0; oR.compareEndPoints('StartToStart', oS) < 0
+						&& oS.moveStart("character", -1) !== 0; i++) {
+						// Why? You can alert(textarea.value.length)
+						if (textarea.value.charAt(i) == '\r') {
+							i++;
+						}
+					}
+					rangeData.start = i;
+					rangeData.end = rangeData.text.length + rangeData.start;
+				}
+
+				return rangeData;
+			},
+
+			set: function (textarea, rangeData) {
+				var oR, start, end;
+				if (!rangeData) {
+					alert("You must get cursor position first.")
+				}
+				textarea.focus();
+				if (textarea.setSelectionRange) { // W3C
+					textarea.setSelectionRange(rangeData.start, rangeData.end);
+				} else if (textarea.createTextRange) { // IE
+					oR = textarea.createTextRange();
+
+					// Fixbug : ues moveToBookmark()
+					// In IE, if cursor position at the end of textarea, the set function don't work
+					if (textarea.value.length === rangeData.start) {
+						//alert('hello')
+						oR.collapse(false);
+						oR.select();
+					} else {
+						oR.moveToBookmark(rangeData.bookmark);
+						oR.select();
+					}
+				}
+			}
+		}
 	</script>
 </head>
 
-<body>
+</head>
+
+<body onload="init()" onbeforeunload="return CloseEvent();">
 	<div id="title"></div>
-	<div id="title_t">edit > 文档一</div>
-	<div id="logo"> <img id="tou_img" src="images/logo.png"></div>
-	<div id="tou"> <img id="tou_img" src="images/tou.gif"></div>
-	<textarea id="edit" spellcheck="false">
-欢迎使用在线文档 
+	<div id="title_t">
 
-在线文档，一份在线编辑、实时保存的文档，还可以轻松邀请好友来一起协作编辑。以下是一些 线文档使用小技巧：
+	</div>
+	<div id="logo">
+		<img id="tou_img" src="images/logo.png">
+	</div>
+	<div id="tou">
+		<img id="tou_img" src="images/tou.gif">
+	</div>
+	<textarea id="edit" oninput="OnInput(event)" spellcheck="false">
 
-一、PC篇
-
-1、在线编辑，实时保存
-在线编辑，告别繁重的office软件；实时保存，不用担心编辑丢失。
-
-2、将文档分享给好友
-点击分享，将文档链接发送给好友。
-
-3、与好友共同编辑 
-进入文档的好友，可以与你一起编辑文档。
-
-
-二、移动篇
-
-1、随手编辑，实时保存
-手机编辑，无需安装其他软件；实时保存，不用担心编辑丢失。
-
-
-2、轻松分享到QQ、微信
-
-点击分享，可将文档分享给QQ好友、微信好友和微信朋友圈。
-
-
-3、与好友共同编辑 
-
-进入文档的好友，可以与你一起编辑文档。
-至此，在线文档使用技巧已get，想知道老司机如何玩转在线表格吗？请在我创建的列表中查看文档《玩转在线文档—场景示范》。
 </textarea>
 	<div id="msg">
-		<div id="msg_list">
-			<div class="left">你好</div>
-			<p class="time">王泽豪-6:00</p>
-			<div class="right">你好</div>
-		</div>
+		<div id="msg_list"></div>
 		<input type="text" id="edit_s" spellcheck="false" />
-		<div class="xian"></div>
-		<img id="send" src="images/jiant.png" /> </div>
+		<div class='xian'></div>
+		<img id="send" onclick="sendx()" src="images/jiant.png" />
+	</div>
 </body>
+<script type="text/javascript">
+		document.getElementById('title_t').innerHTML = "edit > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >" + filename;
+
+</script>
 
 </html>

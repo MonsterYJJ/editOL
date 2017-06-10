@@ -1,11 +1,11 @@
 module.exports = function (file,request,response) {
 var mysql = require('mysql');
-var connection = mysql.createConnection({    
+connection=mysql.createConnection({    
   host     : '127.0.0.1',      
   user     : 'root',             
-  password : '123456',      
+  password : '001256',      
   port: '3306',                  
-  database: 'editol',
+  database: 'editol2',
 });
 connection.connect();
 var  userGetSql = 'INSERT INTO tb_files(id,file_name,file_date,file_text,file_by) VALUES(0,?,?,?,?)';
