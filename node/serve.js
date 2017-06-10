@@ -39,18 +39,10 @@ var server = app.listen(8888, function () {
 
 
 var mysql = require('mysql');
-connection=mysql.createConnection({    
-  host     : '127.0.0.1',      
-  user     : 'root',             
-  password : '001256',      
-  port: '3306',                  
-  database: 'editol2',
-});
-connection.connect();
 
 var WebSocketServer = require('ws').Server,
     wss = new WebSocketServer(
-       { port: 8181 }
+        { port: 8181 }
     );
 connect = {};
 cun = {};
@@ -58,6 +50,7 @@ cun = {};
 wss.on('connection', function (ws) {
     console.log("新连接");
     ws.on('message', function (json) {
+        console.log(json);
         var msg = JSON.parse(json);
         if (msg.type == "connect") {
             var map = connect[msg.flname];
@@ -69,7 +62,14 @@ wss.on('connection', function (ws) {
                 map[msg.ssname] = ws;
                 connect[msg.flname] = map;
             }
-
+            connection = mysql.createConnection({
+                host: '127.0.0.1',
+                user: 'root',
+                password: '001256',
+                port: '3306',
+                database: 'editol2',
+            });
+            connection.connect();
             var userGetSql = 'SELECT * FROM tb_files where id = ?';
             var userModSql_Params = [];
             userModSql_Params.push(msg.flname);
@@ -105,63 +105,72 @@ wss.on('connection', function (ws) {
                         }
                     }
 
-                   
+
                 } );
 
         } else if (msg.type == "msgs") {
 
             xm = connect[msg.flname];
 
-            for(element in xm){
+            for (element in xm) {
                 var json = {};
                 json.msg = msg.msg;
                 json.type = "msgc";
                 json.name = msg.ssname;
-               
+
                 xm[element].send(JSON.stringify(json));
-        };
+            };
 
         } else if (msg.type == "texts") {
 
             xm = connect[msg.flname];
 
-             for(element in xm){
+            for (element in xm) {
                 var json = {};
                 json.msg = msg.msg;
                 json.type = "textc";
                 json.name = msg.ssname;
                 json.guang = msg.guang;
-              
+
                 xm[element].send(JSON.stringify(json));
 
             };
             cun[msg.flname] = msg.msg;
 
         } else if (msg.type == "close") {
-
+            connection = mysql.createConnection({
+                host: '127.0.0.1',
+                user: 'root',
+                password: '001256',
+                port: '3306',
+                database: 'editol2',
+            });
+            connection.connect();
             var userGetSql = 'UPDATE tb_files SET file_text = ? WHERE id = ?';
             var userModSql_Params = [];
             userModSql_Params.push(msg.msg, msg.flname);
             xm = connect[msg.flname];
-            delete xm[msg.ssname];
-            connection.query(
-                userGetSql, userModSql_Params ,
-                function selectCb(err, results, fields) {
-                    if (err) {
-                        throw err;
-                    }
-                    if (results.length > 0) {
-                      
-                    }
+            if (xm != null) {
+                delete xm[msg.ssname];
+                connection.query(
+                    userGetSql, userModSql_Params ,
+                    function selectCb(err, results, fields) {
+                        if (err) {
+                            throw err;
+                        }
+                        if (results.length > 0) {
 
-                } );
+                        }
+
+                    } );
+            }
         }
     });
 
     ws.on('close', function (close) {
         console.log('断开连接');
     });
-}); 
+});
 app.all('*', function (req, res, next) {
 
     res.header('Access-Control-Allow-Origin', '*');

@@ -172,71 +172,64 @@
 				name.length));
 		}
 
-		ws = new WebSocket('ws://127.0.0.1:8181');
+		var ws = new WebSocket('ws://127.0.0.1:8181');
 		var session = window.sessionStorage;
-		myname = session.getItem("uid");
-		filename = "";
-		file_name = GetQueryString(window.location.href);
+		var myname = session.getItem("uid");
+		var filename = "";
+		var file_name = GetQueryString(window.location.href);
 
 		function init() {
+
 			if (myname == null) {
-				window.location.href = "http://127.0.0.1:8888/editOL/login.jsp";
+				window.location.href = "http://127.0.0.1:8888";
 			}
-			window.onbeforeunload = function () {
-				sendclose();
-				var jsonx = {};
-				jsonx.type = "connect";
-				jsonx.flname = file_name;
-				jsonx.ssname = myname;
-				ws.send(JSON.stringify(jsonx));
-				return "刷新后聊天记录会消失";
-			}
+		};
+
+		ws.onopen = function () {
 			var jsonx = {};
 			jsonx.type = "connect";
 			jsonx.flname = file_name;
 			jsonx.ssname = myname;
 			ws.send(JSON.stringify(jsonx));
-
-			ws.onmessage = function (evt) {
-				var obj = JSON.parse(evt.data);
-				var html;
-				if (obj.type == "msgc") {
-					if (obj.name == myname) {
-						html = document.getElementById("msg_list").innerHTML;
-						document.getElementById("msg_list").innerHTML = html
-							+ "<div class='right'>" + obj.msg + "</div>";
-					} else {
-						html = document.getElementById("msg_list").innerHTML;
-						document.getElementById("msg_list").innerHTML = html
-							+ "<div class='left'>" + obj.msg + "</div>"
-							+ "<p class='time'>" + obj.name + "</p>";
-					}
-
-				} else if (obj.type == "textc") {
-					if (obj.flname != null)
-						filename = obj.flname;
-					pos = cursorPosition.get(document.getElementById('edit'));
-					l1 = document.getElementById('edit').value.length;
-					l2 = obj.msg.length;
-					document.getElementById('edit').value = obj.msg;
-					if (obj.guang < pos.end) {
-						pos.end = pos.end + l2 - l1;
-						pos.start = pos.start + l2 - l1;
-						cursorPosition.set(document.getElementById('edit'), pos);
-					} else
-						cursorPosition.set(document.getElementById('edit'), pos);
+		}
+		ws.onmessage = function (evt) {
+			var obj = JSON.parse(evt.data);
+			var html;
+			if (obj.type == "msgc") {
+				if (obj.name == myname) {
+					html = document.getElementById("msg_list").innerHTML;
+					document.getElementById("msg_list").innerHTML = html
+						+ "<div class='right'>" + obj.msg + "</div>";
+				} else {
+					html = document.getElementById("msg_list").innerHTML;
+					document.getElementById("msg_list").innerHTML = html
+						+ "<div class='left'>" + obj.msg + "</div>"
+						+ "<p class='time'>" + obj.name + "</p>";
 				}
 
-			};
-			ws.onclose = function () {
-				//oUl.innerHTML += "<li>客户端已断开连接</li>";
-			};
-			ws.onerror = function (evt) {
-				//oUl.innerHTML += "<li>" + evt.data + "</li>";
+			} else if (obj.type == "textc") {
+				if (obj.flname != null)
+					filename = obj.flname;
+				pos = cursorPosition.get(document.getElementById('edit'));
+				l1 = document.getElementById('edit').value.length;
+				l2 = obj.msg.length;
+				document.getElementById('edit').value = obj.msg;
+				if (obj.guang < pos.end) {
+					pos.end = pos.end + l2 - l1;
+					pos.start = pos.start + l2 - l1;
+					cursorPosition.set(document.getElementById('edit'), pos);
+				} else
+					cursorPosition.set(document.getElementById('edit'), pos);
+			}
 
-			};
 		};
+		ws.onclose = function () {
+			//oUl.innerHTML += "<li>客户端已断开连接</li>";
+		};
+		ws.onerror = function (evt) {
+			//oUl.innerHTML += "<li>" + evt.data + "</li>";
 
+		};
 		function sendx() {
 			if (ws) {
 				var json = {};
@@ -273,17 +266,23 @@
 			}
 		}
 
-		window.onbeforeunload = function () {
-			ws.onclose();
-		}
-
-
+	
 		var DispClose = true;
 		function CloseEvent() {
 			if (DispClose) {
 				sendclose();
+				ws.close;
 				return "是否离开当前页面?";
 			}
+		}
+		window.onbeforeunload = function () {
+			sendclose();
+			var jsonx = {};
+			jsonx.type = "connect";
+			jsonx.flname = file_name;
+			jsonx.ssname = myname;
+			ws.send(JSON.stringify(jsonx));
+			return "刷新后聊天记录会消失";
 		}
 
 		function OnInput(event) {
