@@ -6,7 +6,11 @@
 	<title>edit_OL</title>
 	<style type="text/css">
 		body {
-			background-color: #FaFaFa;
+			background-image: url(images/bei5.jpg);
+			background-size: cover;
+			background-position: center top;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
 		}
 
 		#title {
@@ -17,8 +21,10 @@
 			height: 144px;
 			border: none;
 			border-radius: 0px;
-			background-color: rgba(3, 169, 244, 1);
+			background-color: rgba(0, 80, 255, 0);
 			box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-moz-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
+			-webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.349019607843137);
 		}
 
 		#logo {
@@ -70,17 +76,17 @@
 			height: 2000px;
 			overflow-y: hidden;
 			overflow-x: hidden;
-			font-family: '宋体 常规', '宋体';
+			font-family: '微软雅黑 常规', '微软雅黑';
 			font-style: normal;
 			font-size: 20px;
 			text-align: left;
 			outline: none;
 			resize: none;
-			background-color: rgba(255, 255, 255, 1);
+			background-color: rgba(255, 255, 255, 0.7);
 			border-radius: 2px;
-			-moz-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-			-webkit-box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
-			box-shadow: 0px 0px 30px rgba(174, 174, 174, 0.349019607843137);
+			-moz-box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.349019607843137);
+			-webkit-box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.349019607843137);
+			box-shadow: 0px 0px 30px rgba(255, 255, 255, 0.349019607843137);
 		}
 
 		#tou_img {
@@ -90,13 +96,14 @@
 
 		#msg {
 			position: fixed;
-			left: 72%;
+			left: 75%;
 			float: left;
 			width: 20%;
 			margin-top: 10%;
 			padding: 16px;
 			height: 50%;
-			background-color: rgba(255, 255, 255, 1);
+			font-family: '微软雅黑 常规', '微软雅黑';
+			background-color: rgba(255, 255, 255, 0.7);
 			-moz-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
 			-webkit-box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
 			box-shadow: 0px 0px 20px rgba(174, 174, 174, 0.349019607843137);
@@ -154,16 +161,11 @@
 			height: 20px;
 			border: none;
 			outline: none;
+			background-color: transparent
 		}
 
-		a:link {
-			color: #448AFF;
-			text-decoration: underline;
-		}
-
-		a:visited {
-			color: #ccc;
-			text-decoration: none;
+		a {
+			cursor: pointer;
 		}
 	</style>
 	<script>
@@ -208,8 +210,10 @@
 				}
 
 			} else if (obj.type == "textc") {
-				if (obj.flname != null)
+				if (obj.flname != null) {
 					filename = obj.flname;
+					document.getElementById('title_t').innerHTML = document.getElementById('title_t').innerHTML + filename;
+				}
 				pos = cursorPosition.get(document.getElementById('edit'));
 				l1 = document.getElementById('edit').value.length;
 				l2 = obj.msg.length;
@@ -266,7 +270,7 @@
 			}
 		}
 
-	
+
 		var DispClose = true;
 		function CloseEvent() {
 			if (DispClose) {
@@ -381,7 +385,7 @@
 	</div>
 </body>
 <script type="text/javascript">
-		document.getElementById('title_t').innerHTML = "edit > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >" + filename;
+		document.getElementById('title_t').innerHTML = "edit > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >";
 
 </script>
 
