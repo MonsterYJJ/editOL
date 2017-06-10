@@ -45,6 +45,8 @@ wss.on('connection', function (ws) {
     ws.on('message', function (json) {
         console.log(json);
         var msg = JSON.parse(json);
+        if(msg.ssname==null)
+        return;
         if (msg.type == "connect") {
             var map = connect[msg.flname];
             if (map != null) {

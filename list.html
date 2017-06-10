@@ -3,7 +3,7 @@
 
 <head>
 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<meta charset="utf-8">
 	<title>edit_OL</title>
@@ -26,7 +26,7 @@
 		}
 
 		#title {
-				position: absolute;
+			position: absolute;
 			left: 0px;
 			top: 0px;
 			width: 100%;
@@ -63,10 +63,19 @@
 
 		#tou {
 			position: relative;
-			width: 56px;
+			width: 200px;
 			height: 56px;
 			text-align: center;
 			float: right;
+		}
+
+		#yaoq {
+			cursor: pointer;
+			color: #FFFFFF;
+			width: 56px;
+			height: 56px;
+			font-size: 20px;
+			margin-right: 50px;
 		}
 
 		#tou_img {
@@ -108,7 +117,7 @@
 		}
 
 		.img1 {
-			opacity:0.8;
+			opacity: 0.8;
 			cursor: pointer;
 			width: 36px;
 			height: 36px;
@@ -117,7 +126,7 @@
 		}
 
 		.img2 {
-			opacity:0.8;
+			opacity: 0.8;
 			width: 100%;
 		}
 
@@ -178,24 +187,26 @@
 			height: 56px;
 			line-height: 56px;
 			font-size: 20px;
-			
 		}
+
 		#cha {
 			cursor: pointer;
 		}
 	</style>
 	<script type="text/javascript">
-	var xmlhttp;
+		var xmlhttp;
+		var winlink = "http://" + window.location.href.substring(7, window.location.href.indexOf(":", 7));
+
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 		}
 		else {// code for IE6, IE5
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
-		var json ;
+		var json;
 		var session = window.sessionStorage;
 		var by = session.getItem("uid");
-		
+
 		function xuan(e) {
 			var rows = document.getElementById("tab").rows;
 			var div_del = document.getElementById('del');
@@ -205,79 +216,79 @@
 			this.style.cssText = "background-color: rgba(3, 169, 244, 0.2);";
 			var str = this.cells[5].innerHTML;
 			document.getElementById("con").innerHTML = str;
-			var textLeng = 200;
-			if(str.length >textLeng  ){
-			document.getElementById("con").innerHTML=str.substring(0,textLeng )+"... ...";
+			var textLeng = 200;
+			if (str.length > textLeng) {
+				document.getElementById("con").innerHTML = str.substring(0, textLeng ) + "... ...";
 			}
-			div_del.title=this.cells[4].innerHTML;
+			div_del.title = this.cells[4].innerHTML;
 		}
-		
-		function go_edit(){
+
+		function go_edit() {
 			//session.removeItem("file");
-			window.location="http://122.235.102.172:8888/edit?id="+this.title;
+			window.location = winlink + ":8888/edit?id=" + this.title;
 		}
 		function init() {
-			if(by===null)
-			window.location="http://122.235.102.172:8888/";
+			if (by === null)
+				window.location.href = winlink + ":8888/";
 
-			xmlhttp.open("post", "http://122.235.102.172:8888/getf", true);
+			xmlhttp.open("post", winlink + ":8888/getf", true);
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var tab = document.getElementById("tab");
 					var trr = document.getElementById("tr");
-					tab.innerHTML='';
+					tab.innerHTML = '';
 					tab.appendChild(trr);
 					var res = xmlhttp.responseText;
 					var json = JSON.parse(res);
-					session.setItem("res",res);
+					session.setItem("res", res);
 					var title_t = document.getElementById("title_t");
-					for(var i = 0 ;i<json.length;i++ ){
-						var tr =document.createElement("tr");
-						var tdd =document.createElement("td");
-						 var img = document.createElement("img");
- 							img.src="images/u4.png";
-							img.className="img1"
-							tdd.appendChild(img);
-							tdd.height='64px';
-							tr.appendChild(tdd);
-							img.onclick=go_edit;
-						for(var t  in json[i] ){
-							var td =document.createElement("td");
-							 if(t==="file_name")			
-							td.innerHTML=json[i][t];
-							else if (t==="file_by")
-							td.innerHTML=session.name;
-							else if (t==="file_date")
-							td.innerHTML=json[i][t];
-							else if (t==="id"){
-							td.innerHTML=json[i][t];
-							img.title=json[i][t];
-							td.style.display = "none";
-						}
-							else if (t==="file_text"){
-							td.innerHTML=json[i][t];
-							td.style.display = "none";
-						}
-							else 
-							continue;
-							tr.appendChild(td);			
+					for (var i = 0; i < json.length; i++) {
+						var tr = document.createElement("tr");
+						var tdd = document.createElement("td");
+						var img = document.createElement("img");
+						img.src = "images/u4.png";
+						img.className = "img1"
+						tdd.appendChild(img);
+						tdd.height = '64px';
+						tr.appendChild(tdd);
+						img.onclick = go_edit;
+						for (var t in json[i]) {
+							var td = document.createElement("td");
+							if (t === "file_name")
+								td.innerHTML = json[i][t];
+							else if (t === "file_by")
+								td.innerHTML = session.name;
+							else if (t === "file_date")
+								td.innerHTML = json[i][t];
+							else if (t === "id") {
+								td.innerHTML = json[i][t];
+								img.title = json[i][t];
+								td.style.display = "none";
+							}
+							else if (t === "file_text") {
+								td.innerHTML = json[i][t];
+								td.style.display = "none";
+							}
+							else
+								continue;
+							tr.appendChild(td);
 						}
 						tab.appendChild(tr);
-						
+
 					}
-						var rows =tab.rows;
-						for (var i = 1; i < rows.length; i++) {
+					var rows = tab.rows;
+					for (var i = 1; i < rows.length; i++) {
 						rows[i].onclick = xuan;
 					}
-					title_t.innerHTML= '<a style="cursor: pointer;" onclick="javascript :history.back(-1)" >edit</a>' + ' > '+session.name;
+					title_t.innerHTML = '<a style="cursor: pointer;" onclick="javascript :history.back(-1)" >edit</a>' + ' > ' + session.name;
 				}
-					
+
 			}
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xmlhttp.send("by=" + by);
 
 			document.getElementById("tan").style.display = "none";
-			
+
 		}
 
 		function jia() {
@@ -289,118 +300,119 @@
 		function up() {
 			document.getElementById("tan").style.display = "";
 		}
+		function jinru(){
+			window.location.href = winlink + ":8888/edit?id="+document.getElementById("fname").value;
+		}
+
 		function del() {
 			var div_del = document.getElementById('del');
-				if(div_del.title.length==0)
+			if (div_del.title.length == 0)
 				alert("请选择要删除的文件");
-				xmlhttp.open("post", "http://122.235.102.172:8888/delf", true);
-				xmlhttp.onreadystatechange = function () {
+			xmlhttp.open("post", winlink + ":8888/delf", true);
+			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var bd = document.getElementById('bd');
 					bd.onload();
-				
-					div_del.title='';					
+
+					div_del.title = '';
 				}
-					
-				}
-	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+
+			}
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xmlhttp.send("id=" + div_del.title);
-			
+
 		}
 		function addf() {
 			//var name = document.getElementById("fname").value;
-			
+
 			var name = document.getElementById("wjName").value;
-			if(name.length===0)
-			alert("文件名为空");
-			else{
-			document.getElementById("tan").style.display = "none";
-			
-			xmlhttp.open("post", "http://122.235.102.172:8888/addf", true);
+			if (name.length === 0)
+				alert("文件名为空");
+			else {
+				//document.getElementById("tan").style.display = "none";
+
+				xmlhttp.open("post", winlink + ":8888/addf", true);
 				xmlhttp.onreadystatechange = function () {
-				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				
-					var bd = document.getElementById('bd');
-					bd.onload();
-				
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+						var bd = document.getElementById('bd');
+						bd.onload();
+
+					}
+
 				}
-					
-				}
-	xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("name=" + name + "&by=" + by);
+				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xmlhttp.send("name=" + name + "&by=" + by);
 
 			}
-			
-			}
-		
 
+		}
 	</script>
 </head>
 
 <body id="bd" onload="init()">
 	<div id="tan">
-		<form id="form2" method="post" action="login.action">
-			<div style="height: 36px;	text-align: right; font-size: 36px; margin-right: 10px;"><span id="cha" onclick="cha()">×</span></div>
-			<input type="text" class="name_t" id="fname" name="filename" placeholder="请输入文件名称" spellcheck="false" />
-			<input type="hidden" name="name" placeholder="请输入文件名称" spellcheck="false" />			 
-			<div id="login_b"   onclick="addf()">增加</div>
-		</form>
+		<div style="height: 36px;	text-align: right; font-size: 36px; margin-right: 10px;"><span id="cha" onclick="cha()">×</span></div>
+		<input type="text" class="name_t" id="fname" name="filename" placeholder="请输入邀请码" spellcheck="false" />
+		<div id="login_b" onclick="jinru()">进入</div>
 	</div>
 	<div id="title"></div>
-	<div id="title_t">edit > 朱成龙</div>
+	<div id="title_t">edit_OL > 朱成龙</div>
 	<div id="logo">
 		<img id="tou_img" src="images/logo.png">
 	</div>
-	<div id="tou">
-		<img id="tou_img" src="images/tou.gif">
+	<div id="tou" onclick="jia()">
+		<span id="yaoq">受邀</span><img id="tou_img" src="images/tou.gif">
 	</div>
 	<div style="overflow-x: hidden; overflow-y: auto; height:auto; width: 80%; float: left;">
 		<table id="tab" width="auto" border="0" cellpadding="0" cellspacing="0">
 			<tr id='tr'>
-				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1"  data-toggle="modal" data-target="#myModal"/></td>
+				<td class="lie" width="5%" height="64px" valign="middle"><img src="images/jia.png" class="img1" data-toggle="modal" data-target="#myModal" /></td>
 				<td class="lie" width="20%">名称</td>
 				<td class="lie" width="20%">创建者</td>
 				<td class="lie" width="20%">时间</td>
 				<td class="lie" width="1%"></td>
 				<td class="lie" width="1%"></td>
 			</tr>
-		
+
 		</table>
 	</div>
 	<div id="msg">
-		
+
 		<img class="img2" src="images/bei.jpg" />
 		<div id="del" onclick="del()">删除</div>
 		<div id="con" style="padding: 16px;"></div>
 	</div>
 
 
- <!-- 模态框（Modal） -->
-    <div class="modal fade" id="myModal" tabindex="-1" style='margin-top:10%' role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+	<!-- 模态框（Modal） -->
+	<div class="modal fade" id="myModal" tabindex="-1" style='margin-top:10%' role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;
 				</button>
-				<h4 class="modal-title" id="myModalLabel">
-					新增文件
-				</h4>
-			</div>
-			<div class="modal-body">
-                <input id="wjName" type="text" class="form-control" placeholder="文件名" >
-           
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">关闭
+					<h4 class="modal-title" id="myModalLabel">
+						新增文件
+					</h4>
+				</div>
+				<div class="modal-body">
+					<input id="wjName" type="text" class="form-control" placeholder="文件名">
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭
 				</button>
-				<button type="button" class="btn btn-primary" data-dismiss="modal"  onclick="addf();">
+					<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addf();">
 					提交
 				</button>
+				</div>
 			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal -->
-</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal -->
+	</div>
 </body>
 
 </html>

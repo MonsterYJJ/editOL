@@ -173,8 +173,9 @@
 			return decodeURIComponent(name.substr(name.indexOf("=") + 1,
 				name.length));
 		}
+		var winlink = window.location.href.substring(7, window.location.href.indexOf(":",7) );
 
-		var ws = new WebSocket('ws://122.235.102.172:8999');
+		var ws = new WebSocket('ws://'+winlink+':8181');
 		var session = window.sessionStorage;
 		var myname = session.getItem("uid");
 		var filename = "";
@@ -183,7 +184,7 @@
 		function init() {
 
 			if (myname == null) {
-				window.location.href = "http://122.235.102.172:8888";
+				window.location.href = "http://"+winlink+":8888";
 			}
 		};
 
@@ -234,7 +235,9 @@
 			//oUl.innerHTML += "<li>" + evt.data + "</li>";
 
 		};
+		
 		function sendx() {
+
 			if (ws) {
 				var json = {};
 				json.msg = document.getElementById('edit_s').value;
@@ -243,6 +246,7 @@
 				json.ssname = myname;
 
 				ws.send(JSON.stringify(json));
+				document.getElementById('edit_s').value="";
 			}
 		}
 
@@ -288,9 +292,18 @@
 			ws.send(JSON.stringify(jsonx));
 			return "刷新后聊天记录会消失";
 		}
-
-		function OnInput(event) {
+		var kk=false;
+		
+		function kup(){
+			if(kk)
+			{
 			sendt(event.target.value);
+			kk=false;
+			}
+			
+		}
+		function OnInput(event) {
+			kk=true;
 		}
 
 		var cursorPosition = {
@@ -374,7 +387,7 @@
 	<div id="tou">
 		<img id="tou_img" src="images/tou.gif">
 	</div>
-	<textarea id="edit" oninput="OnInput(event)" spellcheck="false">
+	<textarea id="edit" oninput="OnInput(event)" onkeyup="kup()" spellcheck="false">
 
 </textarea>
 	<div id="msg">
@@ -385,8 +398,20 @@
 	</div>
 </body>
 <script type="text/javascript">
-		document.getElementById('title_t').innerHTML = "edit > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >";
+		document.getElementById('title_t').innerHTML = "edit_OL > <a id='fan' onclick='javascript :history.back(-1)'>" + session.name + "</a> >";
 
 </script>
 
 </html>
+<!--	var lastkeyCode = -1;
+		var lastvalue = document.getElementById("edit").value;
+
+		function TestKeyDown(event) {
+			if (event.keyCode == lastkeyCode||lastvalue==document.getElementById("edit").value) {
+			} else
+			{
+				sendt(event.target.value);
+				lastkeyCode = event.keyCode;
+				lastvalue=document.getElementById("edit").value
+			}
+		}-->

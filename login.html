@@ -2,8 +2,8 @@
 <html>
 
 <head>
-	 	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
-      	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="http://cdn.static.runoob.com/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<meta charset="utf-8">
 	<title>edit_OL</title>
@@ -70,7 +70,8 @@
 			outline: none;
 			font-size: 20px;
 		}
-			#pwd_t2{
+
+		#pwd_t2 {
 			margin-left: 20%;
 			margin-top: 10px;
 			background-color: #FAFAFA;
@@ -80,38 +81,40 @@
 			outline: none;
 			font-size: 20px;
 		}
-#login {
-	cursor: pointer;
-	width: 50%;
-	float: left;
-	font-size: 20px;
-	border: 0;
-}
 
-#res {
-	width: 50%;
-	border: 0;
-	cursor: pointer;
-	font-size: 20px;
-}
+		#login {
+			cursor: pointer;
+			width: 50%;
+			float: left;
+			font-size: 20px;
+			border: 0;
+		}
 
-#login_b,#login_x {
-	cursor: pointer;
-	border-radius: 2px;
-	line-height: 40px;
-	margin-top: 20px;
-	
-	background-color: #448AFF;
-	width: 60%;
-	height: 56px;
-	border: none;
-	outline: none;
-	font-size: 20px;
-	-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
-	border-radius: 2px;
-}
+		#res {
+			width: 50%;
+			border: 0;
+			cursor: pointer;
+			font-size: 20px;
+		}
+
+		#login_b,
+		#login_x {
+			cursor: pointer;
+			border-radius: 2px;
+			line-height: 40px;
+			margin-top: 20px;
+
+			background-color: #448AFF;
+			width: 60%;
+			height: 56px;
+			border: none;
+			outline: none;
+			font-size: 20px;
+			-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
+			border-radius: 2px;
+		}
 
 		#xian {
 			float: left;
@@ -120,11 +123,10 @@
 			height: 1px;
 			width: 60%;
 			margin-bottom: 10px;
-
 		}
 
 		#xian2 {
-			
+
 			margin-left: 25%;
 			background-color: #03A9F4;
 			height: 4px;
@@ -135,6 +137,9 @@
 	</style>
 	<script type="text/javascript">
 		var xmlhttp;
+		var winlink = "http://"+window.location.href.substring(7, window.location.href.indexOf(":",7) );
+	
+
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 		}
@@ -142,117 +147,116 @@
 			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 
-		function zmove(){
-			var x =document.getElementById("xian2");
-			var angle = 0 , lastTime = null ,wz=0;
-			function m (time){
-				if(lastTime!=null)
-				angle +=(time - lastTime)*0.001;
+		function zmove() {
+			var x = document.getElementById("xian2");
+			var angle = 0, lastTime = null, wz = 0;
+			function m(time) {
+				if (lastTime != null)
+					angle += (time - lastTime) * 0.001;
 				lastTime = time;
-				wz=25+angle*200;
-				if(wz>55)
-				wz=55;
-				x.style.marginLeft=wz +'%' ;
-				if(wz<55)
-				requestAnimationFrame(m);
+				wz = 25 + angle * 200;
+				if (wz > 55)
+					wz = 55;
+				x.style.marginLeft = wz + '%';
+				if (wz < 55)
+					requestAnimationFrame(m);
 			}
-				requestAnimationFrame(m);
+			requestAnimationFrame(m);
 		}
 
-		function dmove(){
-			var x =document.getElementById("xian2");
-			var angle = 0 , lastTime = null ,wz=0;
-			function m (time){
-				if(lastTime!=null)
-				angle +=(time - lastTime)*0.001;
+		function dmove() {
+			var x = document.getElementById("xian2");
+			var angle = 0, lastTime = null, wz = 0;
+			function m(time) {
+				if (lastTime != null)
+					angle += (time - lastTime) * 0.001;
 				lastTime = time;
-				wz=55-angle*200;
-				if(wz<25)
-				wz=25;
-				x.style.marginLeft=wz +'%' ;
-				if(wz>25)
-				requestAnimationFrame(m);
+				wz = 55 - angle * 200;
+				if (wz < 25)
+					wz = 25;
+				x.style.marginLeft = wz + '%';
+				if (wz > 25)
+					requestAnimationFrame(m);
 			}
-				requestAnimationFrame(m);
+			requestAnimationFrame(m);
 		}
 		function zhu() {
 			//document.getElementById("xian2").style.cssText = "margin-left:55%;";
 			zmove();
-			document.getElementById("login").onclick=deng;
-			document.getElementById("res").onclick='';
+			document.getElementById("login").onclick = deng;
+			document.getElementById("res").onclick = '';
 			document.getElementById("form1").style.display = "none";
 			document.getElementById("form2").style.display = "";
 		}
 		function deng() {
 			//document.getElementById("xian2").style.cssText = "margin-left:25%;";
 			dmove();
-			document.getElementById("login").onclick='';
-			document.getElementById("res").onclick=zhu;
+			document.getElementById("login").onclick = '';
+			document.getElementById("res").onclick = zhu;
 			document.getElementById("form2").style.display = "none";
 			document.getElementById("form1").style.display = "";
 		}
 		function login() {
 			var userid = document.getElementById("userid").value;
 			var pwd = document.getElementById("pwd_t").value;
-			
-			if(userid===''||pwd===''){
-			alert('请输入账号密码');
-			return;
+
+			if (userid === '' || pwd === '') {
+				alert('请输入账号密码');
+				return;
 			}
-			xmlhttp.open("post", "http://122.235.102.172:8888/login", true);
-			
+			xmlhttp.open("post", winlink + ":8888/login", true);
+
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var res = xmlhttp.responseText;
-					if(res==='账号密码错误'||res==='账号不存在')
-					alert(res);
+					if (res === '账号密码错误' || res === '账号不存在')
+						alert(res);
 					else {
-					var json = JSON.parse(res);
-					var session = window.sessionStorage;
-					session.clear;
-					session.setItem("uid",json.id);
-					session.setItem("name",json.name);
-					session.setItem("userid",json.userid);
-					session.setItem("pwd",json.pwd);
-					window.location.href="http://122.235.102.172:8888/list"
-				}
-					
+						var json = JSON.parse(res);
+						var session = window.sessionStorage;
+						session.clear;
+						session.setItem("uid", json.id);
+						session.setItem("name", json.name);
+						session.setItem("userid", json.userid);
+						session.setItem("pwd", json.pwd);
+						window.location.href = winlink + ":8888/list"
+					}
+
 				}
 
 			}
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 			xmlhttp.send("userid=" + userid + "&pwd=" + pwd);
 		}
 
-			function regist() {
+		function regist() {
 			var userid = document.getElementById("userid2").value;
 			var pwd = document.getElementById("pwd_t2").value;
 			var name = document.getElementById("name2").value;
 
-			xmlhttp.open("post", "http://122.235.102.172:8888/regist", true);
+			xmlhttp.open("post", winlink + ":8888/regist", true);
 			xmlhttp.onreadystatechange = function () {
 				if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 					var res = xmlhttp.responseText;
-					if(res==='账号已存在')
-					alert(res);
+					if (res === '账号已存在')
+						alert(res);
 					else {
-					document.getElementById("userid").value = userid;
-					document.getElementById("pwd_t").value = pwd;
-					var button = document.getElementById("login_x")
-					button.onclick();
-				}
-					
+						document.getElementById("userid").value = userid;
+						document.getElementById("pwd_t").value = pwd;
+						var button = document.getElementById("login_x")
+						button.onclick();
+					}
+
 				}
 
 			}
-				if(userid===""||pwd===""||name===""){
-					alert("注册信息不能为空");
-			}else{
-			xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-			xmlhttp.send("userid=" + userid + "&pwd=" + pwd + "&name="+name);
+			if (userid === "" || pwd === "" || name === "") {
+				alert("注册信息不能为空");
+			} else {
+				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+				xmlhttp.send("userid=" + userid + "&pwd=" + pwd + "&name=" + name);
+			}
 		}
-		}
-
 	</script>
 </head>
 
@@ -265,16 +269,16 @@
 		</div>
 		<div id="xian"></div>
 		<div id="xian2"></div>
-		<form id="form1" method="post" action="http://122.235.102.172:8888/login">
+		<form id="form1" method="post" action="">
 			<input type="text" class="name_t form-control" id="userid" name="userid" placeholder="  账号" spellcheck="false" />
-			<input type="password" id="pwd_t"  class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
+			<input type="password" id="pwd_t" class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
 			<input type="hidden" name="type" value="user" />
 			<div id="login_x" onclick="login()" class='btn btn-primary'>登陆</div>
 		</form>
-		<form id="form2" method="post" action="http://122.235.102.172:8888/regist">
+		<form id="form2" method="post" action="">
 			<input type="text" class="name_t form-control" id="userid2" name="userid" placeholder="  账号" spellcheck="false" />
 			<input type="text" id="name2" name="name" class="name_t form-control" placeholder="  姓名" />
-			<input type="password" id="pwd_t2"  class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
+			<input type="password" id="pwd_t2" class="form-control" name="pwd" placeholder=" 密码" spellcheck="false" />
 			<div id="login_b" onclick="regist()" class='btn btn-primary'>注册</div>
 		</form>
 	</div>
