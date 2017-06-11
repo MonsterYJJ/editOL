@@ -9,7 +9,11 @@
 	<title>edit_OL</title>
 	<style type="text/css">
 		body {
-			background-color: #FaFaFa;
+			background-image: url(images/bei6.jpg);
+			background-size: cover;
+			background-position: center top;
+			background-repeat: no-repeat;
+			background-attachment: fixed;
 			text-align: center;
 		}
 
@@ -18,7 +22,7 @@
 			width: 480px;
 			height: 668px;
 			border-radius: 2px;
-			background: #FFFFFF;
+			background: rgba(255, 255, 255, 0.9);
 			-moz-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
 			-webkit-box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
 			box-shadow: 2px 2px 2px rgba(174, 174, 174, 0.349019607843137);
@@ -38,11 +42,13 @@
 			cursor: hand;
 			width: 50%;
 			float: left;
+			background-color: rgba(255, 255, 255, 0.7);
 			font-size: 20px;
 			width: 50%;
 		}
 
 		#res {
+			background-color: rgba(255, 255, 255, 0.7);
 			cursor: hand;
 			font-size: 20px;
 		}
@@ -50,9 +56,10 @@
 
 
 		.name_t {
+
 			margin-left: 20%;
 			margin-top: 10px;
-			background-color: #FAFAFA;
+			background-color: rgba(255, 255, 255, 0.7);
 			width: 60%;
 			height: 56px;
 			border: none;
@@ -62,7 +69,7 @@
 
 		#pwd_t {
 			margin-top: 10px;
-			background-color: #FAFAFA;
+			background-color: rgba(255, 255, 255, 0.7);
 			margin-left: 20%;
 			width: 60%;
 			height: 56px;
@@ -74,7 +81,7 @@
 		#pwd_t2 {
 			margin-left: 20%;
 			margin-top: 10px;
-			background-color: #FAFAFA;
+			background-color: rgba(255, 255, 255, 0.7);
 			width: 60%;
 			height: 56px;
 			border: none;
@@ -86,6 +93,7 @@
 			cursor: pointer;
 			width: 50%;
 			float: left;
+			background-color: rgba(255, 255, 255, 0.4);
 			font-size: 20px;
 			border: 0;
 		}
@@ -94,6 +102,7 @@
 			width: 50%;
 			border: 0;
 			cursor: pointer;
+			background-color: rgba(255, 255, 255, 0.4);
 			font-size: 20px;
 		}
 
@@ -104,7 +113,7 @@
 			line-height: 40px;
 			margin-top: 20px;
 
-			background-color: #448AFF;
+			background-color: rgba(68, 138, 255, 0.8);
 			width: 60%;
 			height: 56px;
 			border: none;
@@ -128,7 +137,7 @@
 		#xian2 {
 
 			margin-left: 25%;
-			background-color: #03A9F4;
+			background-color: rgba(3, 169, 244, 0.8);
 			height: 4px;
 			width: 20%;
 			margin-bottom: 10px;
@@ -137,8 +146,8 @@
 	</style>
 	<script type="text/javascript">
 		var xmlhttp;
-		var winlink = "http://"+window.location.href.substring(7, window.location.href.indexOf(":",7) );
-	
+		var winlink = "http://" + window.location.href.substring(7, window.location.href.indexOf(":", 7));
+
 
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
